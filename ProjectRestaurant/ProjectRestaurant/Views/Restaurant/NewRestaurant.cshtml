@@ -1,0 +1,36 @@
+﻿@model NewRestaurantSignUpViewModel
+@using( @Html.BeginForm(FormMethod.Post))
+{
+    <div class="container row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row form-group">
+                @Html.Label(null, "Email", new { @class = "col-md-4 bg-white text-secondary"})
+                @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-4 bg-white text-secondary"})
+                @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Şifre", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.Password, null, new { @class = "col-md-6 form-control", type = "password" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Şifre Tekrarı", new { @class = "col-md-4 bg-white text-secondary"})
+                @Html.TextBoxFor(x => x.PasswordConfirm, null, new { @class = "col-md-6 form-control", type = "password" })
+            </div>          
+            <div style="text-align:center">
+                <input class="btn btn-dark" type="submit" value="Kaydet" />
+            </div>
+            <div style="text-align:center">
+                <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })</div>
+                <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger" })</div>
+                <div>@Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-danger" })</div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+}
+

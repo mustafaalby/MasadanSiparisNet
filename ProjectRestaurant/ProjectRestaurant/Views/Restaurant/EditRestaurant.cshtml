@@ -1,0 +1,66 @@
+﻿@model RestaurantEditViewModel
+@{
+    ViewData["Title"] = "EditRestaurant";
+}
+
+
+@using (@Html.BeginForm(FormMethod.Post)) 
+{
+    <div class=" container">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row form-group">
+                @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control", @readonly = "readonly" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Email", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Restoran Adı", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.RestaurantName, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Telefon", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.PhoneNumber, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Çalışan Sayısı", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.AmountOfWorkers, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Şehir", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.RestaurantAddress.City, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "İlçe", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.RestaurantAddress.District, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Mahalle", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div class="row form-group">
+                @Html.Label(null, "Sokak", new { @class = "col-md-4 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "col-md-6 form-control" })
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div style="text-align:center">
+            <input type="submit" class="btn btn-dark" value="Kaydet"/>
+        </div>
+        <div style="text-align:center">
+            <div>@Html.HiddenFor(x => x.RestaurantAddress.AddressId)</div>
+            <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.RestaurantName, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.AmountOfWorkers, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.City, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.District, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "text-danger " })</div>
+            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "text-danger " })</div>
+        </div>
+    </div>
+}
