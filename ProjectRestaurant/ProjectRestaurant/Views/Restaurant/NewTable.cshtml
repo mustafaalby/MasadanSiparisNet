@@ -1,0 +1,21 @@
+﻿@model NewTableViewModel
+@{
+    ViewData["Title"] = "NewTable";
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <div class="container row">
+        <div class="col-md-3"></div>
+        <div class="row col-md-6">
+            @Html.Label(null, "Masa Adı", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.TableName, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+        <input class="btn btn-dark" type="submit" value="Kaydet" />
+    </div>
+}
+

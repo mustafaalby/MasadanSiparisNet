@@ -1,0 +1,29 @@
+﻿@model List<TableViewModel>
+
+@{
+    ViewData["Title"] = "Tables";
+}
+
+    <h1>Tables</h1>
+
+    <div class="container">
+        <div class="">
+            <a class="btn btn-outline-primary float-right" asp-action="NewTable" asp-controller="Restaurant">Yeni Masa</a>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div>
+                        @Html.HiddenFor(x => item.TableId)
+                        <a class=" alert alert-secondary" asp-action="EditTable" asp-controller="Restaurant" asp-route-id="@item.TableId">@item.TableName</a>
+                        
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+

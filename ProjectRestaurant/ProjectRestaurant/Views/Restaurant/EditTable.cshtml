@@ -1,0 +1,28 @@
+﻿@model EditTableViewModel
+@{
+    ViewData["Title"] = "EditTable";
+}
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    @Html.Label(null, "Masa Adı", new { @class = "col-md-4 bg-white text-secondary" })
+                    @Html.TextBoxFor(x => x.TableName, null, new { @class = "col-md-6 form-control" })
+                </div>
+                <div>
+                    @Html.HiddenFor(x => x.TableId)
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+       
+
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+        <input class="btn btn-dark" type="submit" value="Kaydet" />
+        <a class="btn btn-danger" asp-controller="Restaurant" asp-action="DeleteTable" asp-route-id="@Model.TableId">Sil</a>
+    </div>
+}
