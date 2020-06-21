@@ -26,5 +26,25 @@ namespace ProjectRestaurant.Service.Service
             var menu = _context.Set<Menu>().ToList();
             return menu;
         }
+
+        /// <summary>
+        /// Get all product types
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductType> GetProductTypes()
+        {
+            var productTypes = _context.Set<ProductType>().ToList();
+            return productTypes;
+        }
+
+        /// <summary>
+        /// add new menu content to db table
+        /// </summary>
+        /// <param name="menuContent"></param>
+        public void AddNewMenuContent(Menu menuContent)
+        {
+            _context.Set<Menu>().Add(menuContent);
+            _context.SaveChanges();
+        }
     }
 }

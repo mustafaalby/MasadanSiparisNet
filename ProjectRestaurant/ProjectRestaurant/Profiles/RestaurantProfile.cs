@@ -22,6 +22,7 @@ namespace ProjectRestaurant.Profiles
             CreateMap<RestaurantAddress, RestaurantAdresViewModel>();
 
             CreateMap<Menu, MenuViewModel>();
+            CreateMap<MenuViewModel, Menu>();
         }
     }
 }

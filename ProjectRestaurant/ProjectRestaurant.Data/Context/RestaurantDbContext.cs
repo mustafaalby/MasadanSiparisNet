@@ -38,8 +38,8 @@ namespace ProjectRestaurant.Data.Context
                 HasForeignKey(z => z.SessionId);
             builder.Entity<Menu>().
                 HasOne(x => x.ProductType).
-                WithOne(y => y.Menu).
-                HasForeignKey<Menu>(z => z.ProductTypeId);
+                WithMany(y => y.Menu).
+                HasForeignKey(z => z.ProductTypeId);
             base.OnModelCreating(builder);
         }
 
