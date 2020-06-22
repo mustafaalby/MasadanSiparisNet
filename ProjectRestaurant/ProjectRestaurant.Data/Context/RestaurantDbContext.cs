@@ -24,8 +24,8 @@ namespace ProjectRestaurant.Data.Context
                 HasOne(x => x.RestaurantAddress).
                 WithOne(y => y.Restaurant).
                 HasForeignKey<RestaurantAddress>(z => z.RestaurantId);
-            builder.Entity<Restaurant>()
-                .HasMany(x => x.Table).
+            builder.Entity<Restaurant>().
+                HasMany(x => x.Table).
                 WithOne(y => y.Restaurant).
                 HasForeignKey(z => z.RestaurantId);
             builder.Entity<Table>().
@@ -38,14 +38,15 @@ namespace ProjectRestaurant.Data.Context
                 HasForeignKey(z => z.SessionId);
             builder.Entity<Menu>().
                 HasOne(x => x.ProductType).
-                WithOne(y => y.Menu).
-                HasForeignKey<Menu>(z => z.ProductTypeId);
+                WithMany(y => y.Menu).
+                HasForeignKey(z => z.ProductTypeId);
             base.OnModelCreating(builder);
         }
 
         public DbSet<Table> Table { get; set; }
-        public  DbSet<Menu> Menu { get; set; }
-        public  DbSet<Session> Session { get; set; }
+
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Session> Session { get; set; }
         
         public DbSet<RestaurantAddress> RestaurantAddress { get; set; }
         public DbSet<Order> Order { get; set; }

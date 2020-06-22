@@ -30,6 +30,8 @@ namespace ProjectRestaurant.Profiles
 
             CreateMap<Table, TableViewModel>();
 
+            CreateMap<Menu, MenuViewModel>();
+            CreateMap<MenuViewModel, Menu>();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace ProjectRestaurant.Data.Entities
         [Key]
         public int ProductTypeId { get; set;}
         public string Type { get; set; }
-        public virtual Menu Menu { get; set; }
+        public virtual ICollection<Menu> Menu { get; set; }
     }
 }

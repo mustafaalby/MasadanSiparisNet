@@ -1,0 +1,36 @@
+﻿@model MenuViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="container">
+    <div class="row">
+        @Html.TextBoxFor(x => x.MenuId, null, new { @class = "col-md-8", type = "hidden", id = "menuId" })
+    </div>
+    <div class="row">
+        @Html.Label("Product Name", "Ürün Adı", new { @class = "col-md-4" })
+        @Html.TextBoxFor(x => x.ProductName, null, new { @class = "col-md-8", id = "productName" })
+    </div>
+    <div class="row">
+        @Html.Label("Price", "Fiyat", new { @class = "col-md-4" })
+        @Html.TextBoxFor(x => x.Price, null, new { @class = "col-md-8", id = "price" })
+    </div>
+    <div class="row">
+        @Html.Label("Quantity", "Miktar", new { @class = "col-md-4" })
+        @Html.TextBoxFor(x => x.Quantity, null, new { @class = "col-md-8", id = "quantity" })
+    </div>
+    <div class="row">
+        @Html.Label("Description", "Açıklama", new { @class = "col-md-4" })
+        @Html.TextBoxFor(x => x.Description, null, new { @class = "col-md-8", id = "description" })
+    </div>
+    <div class="row">
+        @Html.Label("ProductType", "Ürün Türü", new { @class = "col-md-4" })
+        @Html.DropDownListFor(x => x.ProductTypeId, (List<SelectListItem>)ViewBag.ProductTypes, null, new { @class = "col-md-8", id = "productTypeId" })
+    </div>
+
+    <div class="row">
+        <button id="updateMenuContent" type="button" class="btn btn-dark">Güncelle</button>
+    </div>
+</div>
+
+<script src="~/js/Menu/Update.js"></script>

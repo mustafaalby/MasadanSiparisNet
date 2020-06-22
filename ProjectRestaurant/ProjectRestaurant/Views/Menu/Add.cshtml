@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div class="container">
+    <div class="row">
+        @Html.Label("ProductName", "Ürün Adı", new { @class = "col-md-4" })
+        @Html.TextBox("ProductName", null, new { @class = "col-md-8", id = "productName" })
+    </div>
+    <div class="row">
+        @Html.Label("Price", "Fiyat", new { @class = "col-md-4" })
+        @Html.TextBox("Price", null, new { @class = "col-md-8", id = "price" })
+    </div>
+    <div class="row">
+        @Html.Label("Quantity", "Miktar", new { @class = "col-md-4" })
+        @Html.TextBox("Quantity", null, new { @class = "col-md-8", id = "quantity" })
+    </div>
+    <div class="row">
+        @Html.Label("Description", "Açıklama", new { @class = "col-md-4" })
+        @Html.TextBox("Description", null, new { @class = "col-md-8", id = "description" })
+    </div>
+    <div class="row">
+        @Html.Label("ProductType", "Ürün Türü", new { @class = "col-md-4" })
+        @Html.DropDownList("ProductType", (List<SelectListItem>)ViewBag.ProductTypes, null, new { @class = "col-md-8", id = "productTypeId" })
+    </div>
+
+    <div class="row">
+        <button id="saveMenuContent" type="button" class="btn btn-dark">Kaydet</button>
+    </div>
+</div>
+
+<script src="~/js/Menu/Add.js"></script>
