@@ -46,5 +46,25 @@ namespace ProjectRestaurant.Service.Service
             _context.Set<Menu>().Add(menuContent);
             _context.SaveChanges();
         }
+
+        /// <summary>
+        /// get product from db according to MenuId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Menu GetMenuContentById(int id)
+        {
+            return _context.Set<Menu>().FirstOrDefault(x => x.MenuId == id);
+        }
+
+        /// <summary>
+        /// Update existed product info in menu table
+        /// </summary>
+        /// <param name="menuContent"></param>
+        public void UpdateMenuContent(Menu menuContent)
+        {
+            _context.Set<Menu>().Update(menuContent);
+            _context.SaveChanges();
+        }
     }
 }

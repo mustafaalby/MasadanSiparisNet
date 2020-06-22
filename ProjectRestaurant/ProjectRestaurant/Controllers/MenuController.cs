@@ -48,5 +48,29 @@ namespace ProjectRestaurant.Controllers
             _menuService.AddNewMenuContent(menuContent);
             return Ok();
         }
+
+        public IActionResult Update(int id)
+        {
+            var menuContent = _menuService.GetMenuContentById(id);
+            var mapped = _mapper.Map<MenuViewModel>(menuContent);
+
+            var productTypes = _menuService.GetProductTypes().ToList().Select(x => new SelectListItem()
+            {
+                Value = x.ProductTypeId.ToString(),
+                Text = x.Type
+            }).ToList();
+
+            ViewBag.ProductTypes = productTypes;
+
+            return PartialView(mapped);
+        }
+
+        [HttpPost]
+        public IActionResult Update(MenuViewModel model)
+        {
+            var mapped = _mapper.Map<Menu>(model);
+            _menuService.UpdateMenuContent(mapped);
+            return Ok();
+        }
     }
 }

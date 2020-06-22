@@ -1,4 +1,5 @@
-﻿$("#addMenuContent").click(function () {
+﻿// open add modal screen when clicked add new menu content button
+$("#addMenuContent").click(function () {
     $.ajax({
         url: '/Menu/Add',
         dataType: 'html',
@@ -9,6 +10,7 @@
     });
 });
 
+// save new menu content
 $("#saveMenuContent").click(function () {
     $.ajax({
         url: '/Menu/Add',

@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-    <div class="row">
-        <h1>Restaurant Menu</h1>
-        <input id="addMenuContent" type="button" class="btn btn-dark" value="İçerik Ekle" data-toggle="modal" data-target="#modalTarget" />
-    </div>
+<div class="row">
+    <h1>Restaurant Menu</h1>
+    <input id="addMenuContent" type="button" class="btn btn-dark" value="İçerik Ekle" data-toggle="modal" data-target="#modalTarget" />
+</div>
 
 <div class="container">
     <div class="row">
@@ -24,6 +24,7 @@
             <div class="col-md-1"><p>@menu.Price</p></div>
             <div class="col-md-3"><p>@menu.Description</p></div>
             <div class="col-md-3"><p>@menu.ProductType.Type</p></div>
+            <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-dark" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
         </div>
     }
 </div>
@@ -48,3 +49,4 @@
 </div>
 
 <script src="~/js/Menu/Add.js"></script>
+<script src="~/js/Menu/Update.js"></script>
