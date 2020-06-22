@@ -24,7 +24,8 @@
             <div class="col-md-1"><p>@menu.Price</p></div>
             <div class="col-md-3"><p>@menu.Description</p></div>
             <div class="col-md-3"><p>@menu.ProductType.Type</p></div>
-            <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-dark" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
+            <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-info" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
+            <input id="menuContentDelete-@menu.MenuId" type="button" class="btn btn-outline-danger" value="Sil" data-toggle="modal" data-target="#modalTarget" />
         </div>
     }
 </div>
@@ -50,3 +51,4 @@
 
 <script src="~/js/Menu/Add.js"></script>
 <script src="~/js/Menu/Update.js"></script>
+<script src="~/js/Menu/Delete.js"></script>

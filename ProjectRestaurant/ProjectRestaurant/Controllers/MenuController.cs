@@ -72,5 +72,11 @@ namespace ProjectRestaurant.Controllers
             _menuService.UpdateMenuContent(mapped);
             return Ok();
         }
+
+        public IActionResult Delete(int id)
+        {
+            _menuService.DeleteMenuContent(id);
+            return Ok();
+        }
     }
 }

@@ -66,5 +66,16 @@ namespace ProjectRestaurant.Service.Service
             _context.Set<Menu>().Update(menuContent);
             _context.SaveChanges();
         }
+
+        /// <summary>
+        /// Delete product from menu table
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteMenuContent(int id)
+        {
+            var menuContent = _context.Set<Menu>().FirstOrDefault(x => x.MenuId == id);
+            _context.Remove(menuContent);
+            _context.SaveChanges();
+        }
     }
 }
