@@ -44,6 +44,7 @@ namespace ProjectRestaurant.Data.Context
         }
 
         public DbSet<Table> Table { get; set; }
+
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Session> Session { get; set; }
         

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Models;
 using ProjectRestaurant.Service.Dto;
@@ -20,6 +21,14 @@ namespace ProjectRestaurant.Profiles
 
             CreateMap<RestaurantAdresViewModel, RestaurantAddress>();
             CreateMap<RestaurantAddress, RestaurantAdresViewModel>();
+
+            CreateMap<Table, NewTableViewModel>();
+            CreateMap<NewTableViewModel, Table>();
+
+            CreateMap<Table, EditTableViewModel>();
+            CreateMap<EditTableViewModel, Table>();
+
+            CreateMap<Table, TableViewModel>();
 
             CreateMap<Menu, MenuViewModel>();
             CreateMap<MenuViewModel, Menu>();

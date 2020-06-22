@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Differencing;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Models;
 using ProjectRestaurant.Service.Dto;
@@ -22,11 +23,13 @@ namespace ProjectRestaurant.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var tables = _restaurantService.GetAllTables();
+            var mapped = _mapper.Map<List<TableViewModel>>(tables);
+            return View(mapped);
         }
         public IActionResult NewRestaurant()
         {
-
+            var result= _restaurantService.GetAllTables();
             return View();
         }
         [HttpPost]
@@ -92,6 +95,51 @@ namespace ProjectRestaurant.Controllers
             {
                 return View(model);
             }
+        }
+
+        public IActionResult NewTable()
+        {
+            return View();
+        }
+        [HttpPost]
+        public  async Task<IActionResult> NewTable(NewTableViewModel model)
+        {
+            var mapped = _mapper.Map<Table>(model);
+            await _restaurantService.AddNewTable(mapped,User.Identity.Name);
+            return RedirectToAction(nameof(Tables));
+        }
+        public async Task<IActionResult> DeleteTable(int id)
+        {
+            await _restaurantService.DeleteTable(id);
+            return RedirectToAction(nameof(Tables));
+        }
+
+        public IActionResult EditTable(int id)
+        {
+            var table = _restaurantService.GetTableById(id);
+            var mapped = _mapper.Map<EditTableViewModel>(table);
+            return View(mapped);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditTable(EditTableViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var mapped = _mapper.Map<Table>(model);
+            var result =await _restaurantService.EditTable(mapped);
+            if (result > 0)
+            {
+                return RedirectToAction(nameof(Tables));
+            }
+            return View(model);
+        }
+        public IActionResult Tables()
+        {
+            var tables = _restaurantService.GetAllTables();
+            var mapped = _mapper.Map<List<TableViewModel>>(tables);
+            return View(mapped);
         }
     }
 }

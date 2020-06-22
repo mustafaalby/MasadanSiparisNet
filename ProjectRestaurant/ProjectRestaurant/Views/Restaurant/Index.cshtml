@@ -1,7 +1,33 @@
-﻿
-@{
+﻿@model List< TableViewModel>
+ @{ 
     ViewData["Title"] = "Index";
 }
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            @foreach (var item in Model)
+            {
+                @if (item.IsAvailable == true)
+                {
+                    <div class="row">
+                        @Html.HiddenFor(x => item.TableId)
+                        <a class=" alert alert-success" href="#">@item.TableName - Müsait</a>
 
-<h1>Index</h1>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        @Html.HiddenFor(x => item.TableId)
+                        <a class=" alert alert-danger" href="#">@item.TableName - Dolu</a>
 
+                    </div>
+                }
+
+            }
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
