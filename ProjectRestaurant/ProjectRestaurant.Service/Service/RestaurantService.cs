@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
 using ProjectRestaurant.Data.Context;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Service.Dto;
@@ -29,6 +30,8 @@ namespace ProjectRestaurant.Service.Service
             _roleManager = roleManager;
             _context = context;
         }
+
+       
 
         public async Task<IdentityResult> NewRestaurant(NewRestaurantDto model)
         {
@@ -131,6 +134,18 @@ namespace ProjectRestaurant.Service.Service
             _context.Set<Table>().Update(tab);
             var result= await _context.SaveChangesAsync();
             return result;
+        }
+        public async Task<int> OpenNewSession(int tableId)
+        {
+            Session newSession = new Session
+            {
+                StartDate = DateTime.Now,
+                TableId = tableId
+            };
+            _context.Session.Add(newSession);
+            await _context.SaveChangesAsync();
+            var x = _context.Session.OrderByDescending(x => x.SessionId).FirstOrDefault();
+            return x.SessionId;
         }
     }
 }
