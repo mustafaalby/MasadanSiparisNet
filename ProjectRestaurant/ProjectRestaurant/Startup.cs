@@ -34,6 +34,7 @@ namespace ProjectRestaurant
         {
             services.AddSignalR();
             services.AddTransient<RestaurantService>();
+            services.AddTransient<TableService>();
             services.AddTransient<MenuService>();
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<RestaurantDbContext>(options =>

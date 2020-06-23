@@ -15,21 +15,23 @@ namespace ProjectRestaurant.Controllers
     public class RestaurantController : Controller
     {
         private readonly RestaurantService _restaurantService;
+        private readonly TableService _tableService;
         private readonly IMapper _mapper;
-        public RestaurantController(RestaurantService restaurantService,IMapper mapper)
+        public RestaurantController(RestaurantService restaurantService, TableService tableService, IMapper mapper)
         {
             _restaurantService = restaurantService;
+            _tableService = tableService;
             _mapper = mapper;
         }
         public IActionResult Index()
         {
-            var tables = _restaurantService.GetAllTables();
+            var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
             return View(mapped);
         }
         public IActionResult NewRestaurant()
         {
-            var result= _restaurantService.GetAllTables();
+            var result= _tableService.GetAllTables();
             return View();
         }
         [HttpPost]
@@ -105,18 +107,18 @@ namespace ProjectRestaurant.Controllers
         public  async Task<IActionResult> NewTable(NewTableViewModel model)
         {
             var mapped = _mapper.Map<Table>(model);
-            await _restaurantService.AddNewTable(mapped,User.Identity.Name);
+            await _tableService.AddNewTable(mapped,User.Identity.Name);
             return RedirectToAction(nameof(Tables));
         }
         public async Task<IActionResult> DeleteTable(int id)
         {
-            await _restaurantService.DeleteTable(id);
+            await _tableService.DeleteTable(id);
             return RedirectToAction(nameof(Tables));
         }
 
         public IActionResult EditTable(int id)
         {
-            var table = _restaurantService.GetTableById(id);
+            var table = _tableService.GetTableById(id);
             var mapped = _mapper.Map<EditTableViewModel>(table);
             return View(mapped);
         }
@@ -128,7 +130,7 @@ namespace ProjectRestaurant.Controllers
                 return View(model);
             }
             var mapped = _mapper.Map<Table>(model);
-            var result =await _restaurantService.EditTable(mapped);
+            var result =await _tableService.EditTable(mapped);
             if (result > 0)
             {
                 return RedirectToAction(nameof(Tables));
@@ -137,7 +139,7 @@ namespace ProjectRestaurant.Controllers
         }
         public IActionResult Tables()
         {
-            var tables = _restaurantService.GetAllTables();
+            var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
             return View(mapped);
         }
