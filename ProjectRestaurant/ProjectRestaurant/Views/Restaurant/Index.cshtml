@@ -1,8 +1,9 @@
-﻿@model List< TableViewModel>
- @{ 
+﻿@model List<TableViewModel>
+@{
     ViewData["Title"] = "Index";
 }
-<div class="container">
+
+<div class="container" id="temp">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -29,5 +30,25 @@
         </div>
         <div class="col-md-3"></div>
     </div>
+    <div id="RequestList">
+        
+    </div>
 
 </div>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/Istek.js"></script>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('click', '#AcceptButton', function () {
+            connection.invoke("SendActivationLink", "deneme");
+            $(this).parent().remove();
+        });
+
+        $(document).on('click', '#DeclineButton', function () {
+
+            $(this).parent().remove();
+        });
+    });
+
+</script>*@
