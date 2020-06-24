@@ -1,13 +1,71 @@
-﻿@{
+﻿@model List<TableViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    #isAvaible-True {
+        background-color: #39902f;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        #isAvaible-True a {
+            cursor: pointer;
+        }
+
+    #isAvaible-False {
+        background-color: #be2a2a;
+        color: currentColor;
+        cursor: not-allowed;
+        opacity: 0.8;
+        text-decoration: none;
+    }
+
+        #isAvaible-False a {
+            cursor: not-allowed;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    #grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 5px;
+        margin: 20px;
+    }
+
+        .card .card-header, .card-body {
+            background-color: #ffffff;
+        }
+
+    .cardText {
+        text-align: center;
+    }
+</style>
+
+<div class="container" id="grid">
+    @foreach (var item in Model)
+    {
+        <div class="card" id="isAvaible-@item.IsAvailable">
+            <div class="card-header">
+                <h5 class="cardText">
+                    @item.TableName
+                </h5>
+            </div>
+
+            <div class="card-body">
+                @if (item.IsAvailable)
+                {<p class="cardText">Müsait</p> }
+                else
+                {<p class=" cardText">Dolu</p>}
+            </div>
+            <div class="card-footer" id="@item.TableId"><div style="text-align:center"><button class="btn btn-light sendButton" > Oturma İsteği Yolla</button></div></div>
+        </div>
+    }
 </div>
-<textarea id="messageInput"></textarea>
-<button id="sendButtonn">bas</button>
-<ul id="RequestList"></ul>
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Istek.js"></script>
+

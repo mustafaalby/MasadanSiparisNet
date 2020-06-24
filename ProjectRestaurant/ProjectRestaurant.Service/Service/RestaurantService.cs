@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
+using Microsoft.EntityFrameworkCore;
 using ProjectRestaurant.Data.Context;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Service.Dto;
@@ -137,9 +138,11 @@ namespace ProjectRestaurant.Service.Service
         }
         public async Task<int> OpenNewSession(int tableId)
         {
+            Table table = _context.Table.Where(x => x.TableId == tableId).FirstOrDefault();
             Session newSession = new Session
             {
                 StartDate = DateTime.Now,
+                Table = table,
                 TableId = tableId
             };
             _context.Session.Add(newSession);

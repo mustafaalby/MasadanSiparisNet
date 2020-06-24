@@ -11,11 +11,11 @@ namespace ProjectRestaurant.Hubs
     {
         private string RestaurantConnectionId;
         private string CostumerConID;
-        public async Task BroadcastMessage(string message,string CostumerConnectionId)
+        public async Task BroadcastMessage(string tableId,string CostumerConnectionId)
         {
             CostumerConID = CostumerConnectionId;
             
-            await Clients.All.SendAsync("receive", message, CostumerConnectionId);
+            await Clients.All.SendAsync("receive", tableId, CostumerConnectionId);
 
         }
         public Task SendSessionRequestMessage(string connectionId, string message)

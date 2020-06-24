@@ -24,11 +24,12 @@ namespace ProjectRestaurant.Controllers
 
             return View();
         }
-        public async Task< IActionResult> SessionRequest(int TableId)
+        public async Task< IActionResult> SessionRequest(int id)
         {
-            int SessionId= await _restaurantService.OpenNewSession(TableId);
+            int SessionId= await _restaurantService.OpenNewSession(id);
             HttpContext.Session.SetInt32("SessionId", SessionId);
-            return View();
+            TempData["Table"] = HttpContext.Session.GetInt32("SessionId");
+            return RedirectToAction("Privacy", "Home");//Müşterinin Menüyü görme sayfaları eklendiğinde, menü sayfasına yönlendirilecek
         }
     }
 }
