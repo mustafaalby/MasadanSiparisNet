@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Differencing;
 using ProjectRestaurant.Data.Entities;
+using ProjectRestaurant.Hubs;
 using ProjectRestaurant.Models;
 using ProjectRestaurant.Service.Dto;
 using ProjectRestaurant.Service.Service;
@@ -27,6 +28,7 @@ namespace ProjectRestaurant.Controllers
         {
             var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
+            
             return View(mapped);
         }
         public IActionResult NewRestaurant()

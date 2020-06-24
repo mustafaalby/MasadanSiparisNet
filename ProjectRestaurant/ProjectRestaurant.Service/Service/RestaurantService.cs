@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account;
+
 using Microsoft.EntityFrameworkCore;
 using ProjectRestaurant.Data.Context;
 using ProjectRestaurant.Data.Entities;
@@ -30,6 +33,8 @@ namespace ProjectRestaurant.Service.Service
             _roleManager = roleManager;
             _context = context;
         }
+
+       
 
         public async Task<IdentityResult> NewRestaurant(NewRestaurantDto model)
         {
@@ -82,6 +87,60 @@ namespace ProjectRestaurant.Service.Service
             var result = await _userManager.UpdateAsync(rest);
             return result;
         }
-        
+
+        public async Task<int> AddNewTable(Table model,string userName)
+        {
+            var rest =await _userManager.FindByNameAsync(userName);
+            model.Restaurant = rest;
+            model.RestaurantId = rest.Id;
+            model.IsAvailable = true;
+            _context.Set<Table>().Add(model);
+            var result=await _context.SaveChangesAsync();
+            return result;
+        }
+        public List<Table> GetAllTables()
+        {
+            
+            var result =_context.Set<Table>().ToList();
+            return result;
+        }
+        public async Task<int> DeleteTable(int id)
+        {
+            var model = _context.Table.Where(x => x.TableId == id).FirstOrDefault();
+            _context.Table.Remove(model);
+            var result = await _context.SaveChangesAsync();
+            return result;
+            
+        }
+
+        public Table GetTableById(int id)
+        {
+            var table =  _context.Table.Where(x => x.TableId == id).FirstOrDefault();
+            return table;
+        }
+        public async Task<int> EditTable(Table table)
+        {
+
+            var tab = _context.Table.Where(x => x.TableId == table.TableId).FirstOrDefault();
+            tab.TableName = table.TableName;
+            _context.Set<Table>().Update(tab);
+            var result= await _context.SaveChangesAsync();
+            return result;
+        }
+        public async Task<int> OpenNewSession(int tableId)
+        {
+            Table table = _context.Table.Where(x => x.TableId == tableId).FirstOrDefault();
+            Session newSession = new Session
+            {
+                StartDate = DateTime.Now,
+                Table = table,
+                TableId = tableId
+            };
+            _context.Session.Add(newSession);
+            await _context.SaveChangesAsync();
+            var x = _context.Session.OrderByDescending(x => x.SessionId).FirstOrDefault();
+            return x.SessionId;
+        }
+
     }
 }
