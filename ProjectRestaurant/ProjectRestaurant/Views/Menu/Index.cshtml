@@ -1,0 +1,55 @@
+﻿@model List<MenuViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <h1>Restaurant Menu</h1>
+    <input id="addMenuContent" type="button" class="btn btn-dark" value="İçerik Ekle" data-toggle="modal" data-target="#modalTarget" />
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"><strong>İçerik</strong></div>
+        <div class="col-md-1"><strong>Fiyat</strong></div>
+        <div class="col-md-3"><strong>Aciklama</strong></div>
+        <div class="col-md-3"><strong>Tür</strong></div>
+    </div>
+
+    @foreach (var menu in Model)
+    {
+        <div class="row">
+            <div class="col-md-2"><p>@menu.ProductName</p></div>
+            <div class="col-md-1"><p>@menu.Price</p></div>
+            <div class="col-md-3"><p>@menu.Description</p></div>
+            <div class="col-md-3"><p>@menu.ProductType.Type</p></div>
+            <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-info" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
+            <input id="menuContentDelete-@menu.MenuId" type="button" class="btn btn-outline-danger" value="Sil" data-toggle="modal" data-target="#modalTarget" />
+        </div>
+    }
+</div>
+
+<div id="modalTarget" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modalTitle" class="modal-title">Detay</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Menu/Index.js"></script>
+<script src="~/js/Menu/Add.js"></script>
+<script src="~/js/Menu/Update.js"></script>
+<script src="~/js/Menu/Delete.js"></script>
