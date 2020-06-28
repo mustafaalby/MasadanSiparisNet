@@ -1,66 +1,114 @@
 ﻿@model RestaurantEditViewModel
-@{
-    ViewData["Title"] = "EditRestaurant";
-}
+@{ ViewData["Title"] = "EditRestaurant"; }
 
+<style>
+    #image {
+        height: 100px;
+        width: 100px;
+        margin-left: 350px;
+    }
 
-@using (@Html.BeginForm(FormMethod.Post)) 
+    #form {
+        border-style: outset;
+        padding: 15px;
+        border: 5px;
+        margin-top: 20px;
+        margin-left: 200px;
+        border-style: outset;
+        height: 750px;
+        width: 800px;
+    }
+
+    #form2 {
+        margin-left: 150px
+    }
+
+    #title {
+        margin-left: 280px;
+        margin-top: 120px;
+        color: #73e600;
+        font-size: 30px;
+        font-style: italic;
+    }
+
+    #btn {
+        margin-left: 150px;
+        background-color: #73e600
+    }
+
+    #text {
+        color: #73e600;
+    }
+</style>
+
+@using (@Html.BeginForm(FormMethod.Post))
 {
-    <div class=" container">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row form-group">
-                @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control", @readonly = "readonly" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Email", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Restoran Adı", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.RestaurantName, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Telefon", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.PhoneNumber, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Çalışan Sayısı", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.AmountOfWorkers, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Şehir", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.RestaurantAddress.City, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "İlçe", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.RestaurantAddress.District, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Mahalle", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "col-md-6 form-control" })
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Sokak", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "col-md-6 form-control" })
-            </div>
+<div id="form" class=" container  row rounded-pill">
+
+    <p>
+        <img id="image" src="~/image/iconfinder_Branding_1562683.png" />
+        <br />
+        <a id="title">Restorant Profilini Ekle</a>
+    </p>
+
+
+
+    <div id="form2" class="col-md-8">
+
+
+
+        <div id="text" class="row form-group">
+
+            <img src="~/image/iconfinder_arrow_right_36837.png" />   @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control", @readonly = "readonly" })
         </div>
-        <div class="col-md-2"></div>
-        <div style="text-align:center">
-            <input type="submit" class="btn btn-dark" value="Kaydet"/>
+        <div id="text" class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />  @Html.Label(null, "Email", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control" })
         </div>
-        <div style="text-align:center">
-            <div>@Html.HiddenFor(x => x.RestaurantAddress.AddressId)</div>
-            <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.RestaurantName, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.AmountOfWorkers, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.City, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.District, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "text-danger " })</div>
-            <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "text-danger " })</div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" /> @Html.Label(null, "Restoran Adı", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.RestaurantName, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />  @Html.Label(null, "Telefon", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.PhoneNumber, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" /> @Html.Label(null, "Çalışan Sayısı", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.AmountOfWorkers, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />  @Html.Label(null, "Şehir", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.RestaurantAddress.City, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />  @Html.Label(null, "İlçe", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.RestaurantAddress.District, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />  @Html.Label(null, "Mahalle", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "col-md-6 form-control" })
+        </div>
+        <div class="row form-group">
+            <img src="~/image/iconfinder_arrow_right_36837.png" />   @Html.Label(null, "Sokak", new { @class = "col-md-4 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "col-md-6 form-control" })
         </div>
     </div>
-}
+    <div class="col-md-2"></div>
+    <div style="text-align:center">
+        <input class="btn" id="btn" type="submit" value="Kaydet" />
+    </div>
+    <div style="text-align:center">
+        <div>@Html.HiddenFor(x => x.RestaurantAddress.AddressId)</div>
+        <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.RestaurantName, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.PhoneNumber, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.AmountOfWorkers, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.City, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.District, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.Neighborhood, null, new { @class = "text-danger " })</div>
+        <div>@Html.ValidationMessageFor(x => x.RestaurantAddress.StreetAndNu, null, new { @class = "text-danger " })</div>
+    </div>
+</div>}
