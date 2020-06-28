@@ -27,9 +27,11 @@ namespace ProjectRestaurant.Controllers
         public async Task< IActionResult> SessionRequest(int id)
         {
             int SessionId= await _restaurantService.OpenNewSession(id);
-            HttpContext.Session.SetInt32("SessionId", SessionId);
-            TempData["Table"] = HttpContext.Session.GetInt32("SessionId");
-            return RedirectToAction("Privacy", "Home");//Müşterinin Menüyü görme sayfaları eklendiğinde, menü sayfasına yönlendirilecek
+            CookieOptions option = new CookieOptions();
+            option.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("SessionId", SessionId.ToString(), option);
+            
+            return RedirectToAction("Index", "MenuView");//Müşterinin Menüyü görme sayfaları eklendiğinde, menü sayfasına yönlendirilecek
         }
     }
 }

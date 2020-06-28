@@ -1,0 +1,30 @@
+﻿@model List<MenuViewModel>
+@{
+    ViewData["Title"] = "GetProduct";
+}
+
+<h1>Menü İçerik</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"><strong>Ürün Adı</strong></div>
+        <div class="col-md-2"><strong>Ürün Fİyatı</strong></div>
+        <div class="col-md-2"><strong>Ürün Miktarı</strong></div>
+        <div class="col-md-2"><strong>Ürün Açıklaması</strong></div>
+        <div class="col-md-2"><strong>Ürün Türü</strong></div>
+    </div>
+</div>
+
+
+@foreach (var menu in Model)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">@menu.ProductName</div>
+            <div class="col-md-2">@menu.Price</div>
+            <div class="col-md-2">@menu.Quantity</div>
+            <div class="col-md-2">@menu.Description</div>
+            <div class="col-md-2">@menu.ProductType.Type</div>
+        </div>
+    </div>
+}

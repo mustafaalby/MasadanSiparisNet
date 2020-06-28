@@ -41,5 +41,23 @@ namespace ProjectRestaurant.Hubs
         {
             return Context.ConnectionId;
         }
+        public async Task SendOrder(string tableId)
+        {
+            
+
+            await Clients.Others.SendAsync("SendOrderResponse", tableId);
+
+        }
+        public async Task CheckoutMessage(string tableId,string CostumerConnectionId)
+        {
+
+
+            await Clients.Others.SendAsync("CheckoutResponse", tableId, CostumerConnectionId);
+
+        }
+        public  Task CloseSession(string tableId)
+        {
+            return Clients.Others.SendAsync("CloseSessionLink",tableId);
+        }
     }
 }

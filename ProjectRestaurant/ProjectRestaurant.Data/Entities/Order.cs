@@ -12,6 +12,7 @@ namespace ProjectRestaurant.Data.Entities
         public string ProductName { get; set; }
         public float Price { get; set; }
         public float Quantity { get; set; }
+        public bool isDelivered { get; set; }
         public int SessionId { get; set; }
         public virtual Session Session { get; set; }
     }
