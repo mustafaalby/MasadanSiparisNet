@@ -40,6 +40,7 @@ namespace ProjectRestaurant.Data.Context
                 HasOne(x => x.ProductType).
                 WithMany(y => y.Menu).
                 HasForeignKey(z => z.ProductTypeId);
+
             base.OnModelCreating(builder);
         }
 
