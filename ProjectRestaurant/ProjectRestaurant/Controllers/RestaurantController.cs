@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.Differencing;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Hubs;
@@ -144,6 +145,24 @@ namespace ProjectRestaurant.Controllers
             var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
             return View(mapped);
+        }
+        
+        public IActionResult TableDetail(int id)
+        {
+            
+            var session = _restaurantService.GetSessionDetail(id);
+            var mapped = _mapper.Map<SessionViewModel>(session);
+            return View(mapped);
+        }
+        public IActionResult DeliverOrder(int id)
+        {
+            _restaurantService.DeliverOrder( id);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult CloseSession(int id)
+        {
+            _restaurantService.CloseSession(id);
+            return Ok();
         }
     }
 }

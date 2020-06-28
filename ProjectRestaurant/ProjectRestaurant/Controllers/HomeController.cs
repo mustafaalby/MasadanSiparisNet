@@ -26,16 +26,19 @@ namespace ProjectRestaurant.Controllers
 
         public IActionResult Index()
         {
-            var tables = _restaurantService.GetAllTables();
-            var mapped = _mapper.Map<List<TableViewModel>>(tables);
-
-            return View(mapped);
+            return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
+        public IActionResult Tables()
+        {
+            var tables = _restaurantService.GetAllTables();
+            var mapped = _mapper.Map<List<TableViewModel>>(tables);
+            return View(mapped);
+    }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

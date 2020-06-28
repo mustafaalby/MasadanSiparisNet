@@ -66,7 +66,8 @@
                     {<p class=" cardText">Dolu</p>
                     }
                 </div>
-                <div class="card-footer" id="@item.TableId"><div style="text-align:center"><a class="btn btn-light">Masa Detayı</a></div></div>
+                <div class="card-footer" id="@item.TableId"><div style="text-align:center"><a asp-action="TableDetail" asp-controller="Restaurant" asp-route-id="@item.TableId" target="_blank" class="btn btn-light">Masa Detayı</a></div></div>
+                
             </div>
         }
     </div>
