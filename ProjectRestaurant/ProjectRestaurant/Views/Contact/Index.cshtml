@@ -3,16 +3,23 @@
     ViewData["Title"] = "Index";
 }
 
-<link href="~/css/Contact/Index.css" rel="stylesheet" />
+<link href="~/css/Contact/Index/form.css" rel="stylesheet" />
+<link href="~/css/Contact/Index/map.css" rel="stylesheet" />
 
 <div class="container">
     <div style="text-align:center">
         <h2>Bizimle iletişime geçin.</h2>
-        <p>Öerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
+        <p>Önerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
     </div>
     <div class="row">
         <div class="column">
-            <img src="/w3images/map.jpg" style="width:100%">
+            <div>
+                <div id="map" style="height:350px; width:350px;"></div>
+                <script src="~/js/Contact/Index.js"></script>
+                <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U&callback=initMap&libraries=&v=weekly"
+                        defer></script>
+            </div>
         </div>
         <div class="column">
             <form action="/action_page.php">
