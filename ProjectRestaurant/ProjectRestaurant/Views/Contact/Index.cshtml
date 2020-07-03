@@ -1,4 +1,5 @@
-﻿
+﻿@model RestaurantAdresViewModel
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -26,6 +27,13 @@
                     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U&callback=initMap&libraries=&v=weekly"
                             defer></script>
+                </div>
+                @*Adress*@
+                <div class="container">
+                    <div class="row form-group">
+                        <div class="col-md-2"><strong>Adres:</strong></div>
+                        <div class="col-md-6"><p>@Model.Neighborhood, @Model.StreetAndNu, @Model.District/@Model.City</p></div>
+                    </div>
                 </div>
             </div>
             <div class="column">
