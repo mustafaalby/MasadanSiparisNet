@@ -4,33 +4,43 @@
 }
 
 <link href="~/css/Contact/Index/form.css" rel="stylesheet" />
-<link href="~/css/Contact/Index/map.css" rel="stylesheet" />
+@*<link href="~/css/Contact/Index/map.css" rel="stylesheet" />*@
 
-<div class="container">
-    <div style="text-align:center">
-        <h2>Bizimle iletişime geçin.</h2>
-        <p>Önerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
-    </div>
-    <div class="row">
-        <div class="column">
-            <div>
-                <div id="map" style="height:350px; width:350px;"></div>
-                <script src="~/js/Contact/Index.js"></script>
-                <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U&callback=initMap&libraries=&v=weekly"
-                        defer></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "contact-form", action = "" }))
+{
+    if (ViewBag.Success == true)
+    {
+        <span>Mesajınız başarıyla gönderilmiştir.</span>
+    }
+
+    <div class="container">
+        <div style="text-align:center">
+            <h2>Bizimle iletişime geçin.</h2>
+            <p>Önerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div>
+                    <div id="map" style="height:350px; width:350px;"></div>
+                    <script src="~/js/Contact/Index.js"></script>
+                    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U&callback=initMap&libraries=&v=weekly"
+                            defer></script>
+                </div>
+            </div>
+            <div class="column">
+                <form action="/action_page.php">
+                    <label for="name">Adınız Soyadınız</label>
+                    <input type="text" id="name" name="Name" placeholder="Ad Soyad..">
+                    <label for="email">E-Mailiniz</label>
+                    <input type="text" id="email" name="Email" placeholder="E-Mail Adresi..">
+                    <label for="subject">Konu</label>
+                    <input type="text" id="subject" name="Subject" placeholder="Konu..">
+                    <label for="message">Mesajınız</label>
+                    <textarea id="message" name="Message" placeholder="Bir şeyler yazın.." style="height:170px"></textarea>
+                    <input type="submit" value="Gönder">
+                </form>
             </div>
         </div>
-        <div class="column">
-            <form action="/action_page.php">
-                <label for="fname">Adınız</label>
-                <input type="text" id="fname" name="firstname" placeholder="Ad..">
-                <label for="lname">Soyadınız</label>
-                <input type="text" id="lname" name="lastname" placeholder="Soyad..">
-                <label for="subject">Mesajınız</label>
-                <textarea id="subject" name="subject" placeholder="Bir şeyler yazın.." style="height:170px"></textarea>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
     </div>
-</div>
+}
