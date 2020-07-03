@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/Contact/Index.css" rel="stylesheet" />
+
+<div class="container">
+    <div style="text-align:center">
+        <h2>Bizimle iletişime geçin.</h2>
+        <p>Öerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
+    </div>
+    <div class="row">
+        <div class="column">
+            <img src="/w3images/map.jpg" style="width:100%">
+        </div>
+        <div class="column">
+            <form action="/action_page.php">
+                <label for="fname">Adınız</label>
+                <input type="text" id="fname" name="firstname" placeholder="Ad..">
+                <label for="lname">Soyadınız</label>
+                <input type="text" id="lname" name="lastname" placeholder="Soyad..">
+                <label for="subject">Mesajınız</label>
+                <textarea id="subject" name="subject" placeholder="Bir şeyler yazın.." style="height:170px"></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
