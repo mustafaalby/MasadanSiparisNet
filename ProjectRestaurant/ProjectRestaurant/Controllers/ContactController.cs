@@ -32,6 +32,10 @@ namespace ProjectRestaurant.Controllers
                 Neighborhood = restInfo.RestaurantAddress.Neighborhood,
                 StreetAndNu = restInfo.RestaurantAddress.StreetAndNu,
             };
+            ViewBag.Email = restInfo.Email;
+            ViewBag.PhoneNumber = restInfo.PhoneNumber;
+            ViewData["GoogleMapApiKey"] = "AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U";
+
             return View(adress);
         }
 
@@ -46,8 +50,9 @@ namespace ProjectRestaurant.Controllers
                 body.AppendLine("Konu: " + model.Subject);
                 body.AppendLine("Mesaj: " + model.Message);
                 _contactService.MailSender(body.ToString());
+                ViewBag.Success = true;
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ProjectRestaurant.Service.Service
             const string subject = "Masadan Sipariş | Masadan Sipariş İletişim Formu";
             using (var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
+                Host = "smtp.gmail.com", //smtp-mail.outlook.com
                 Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
