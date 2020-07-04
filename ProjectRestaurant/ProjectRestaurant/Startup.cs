@@ -36,6 +36,7 @@ namespace ProjectRestaurant
             services.AddTransient<RestaurantService>();
             services.AddTransient<TableService>();
             services.AddTransient<MenuService>();
+            services.AddTransient<ContactService>();
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<RestaurantDbContext>(options =>
                 options.UseSqlServer(
