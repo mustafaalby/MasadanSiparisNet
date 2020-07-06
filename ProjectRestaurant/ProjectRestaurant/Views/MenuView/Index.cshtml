@@ -1,6 +1,9 @@
 ﻿@model List<ProductTypeViewModel>
 
 <style>
+    th,td,button,    a, .card{
+        font-family: 'Courgette', cursive;
+    }
     #grid {
         display: grid;
         grid-template-columns: 20% 20% 20% 20% 20%;
@@ -27,14 +30,14 @@
         
         white-space: normal;
         text-align: justify;
-        -moz-text-align-last: center; /* Firefox 12+ */
+        -moz-text-align-last: center;
         text-align-last: center;
     }
 </style>
 <div class="container tableId" id="@ViewBag.tableId" >
     
     <div class="row">
-        <a class="btn btn-outline-dark" asp-controller="MenuView" asp-action="MySession">Hesabım</a>
+        
         <div class="col-md-8">
             @for (int i = 0; i < Model.Count; i++)
             {<div class="card">
@@ -81,6 +84,7 @@
             </table>
             <div style="text-align:center">
                 <button id="makeOrder" class="btn btn-outline-dark">Sipariş Ver</button>
+                <a class="btn btn-outline-dark" asp-controller="MenuView" asp-action="MySession">Hesabım</a>
             </div>
         </div>
     </div>
