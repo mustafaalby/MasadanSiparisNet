@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.Differencing;
 using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Hubs;
@@ -24,11 +26,11 @@ namespace ProjectRestaurant.Controllers
             _tableService = tableService;
             _mapper = mapper;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
-            
             return View(mapped);
         }
         public IActionResult NewRestaurant()
@@ -36,6 +38,7 @@ namespace ProjectRestaurant.Controllers
             var result= _tableService.GetAllTables();
             return View();
         }
+        
         [HttpPost]
         public  async  Task<IActionResult> NewRestaurant(NewRestaurantSignUpViewModel model)
         {
@@ -51,10 +54,12 @@ namespace ProjectRestaurant.Controllers
             }
             return View();
         }
+       
         public IActionResult LoginRestaurant()
         {
             return View();
         }
+        
         [HttpPost]
         public async Task<IActionResult> LoginRestaurant(RestaurantSignInViewModel model)
         {
@@ -71,17 +76,20 @@ namespace ProjectRestaurant.Controllers
             }
             return View(model);
         }
+        [Authorize]
         public IActionResult Logout()
         {
             _restaurantService.Logout();
             return RedirectToAction(nameof(LoginRestaurant));
         }
+        [Authorize]
         public async Task<IActionResult> EditRestaurant()
         {
             var rest = await _restaurantService.GetRestaurantInfo(User.Identity.Name);
             var mapped = _mapper.Map<RestaurantEditViewModel>(rest);
             return View(mapped);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> EditRestaurant(RestaurantEditViewModel model)
         {
@@ -100,11 +108,12 @@ namespace ProjectRestaurant.Controllers
                 return View(model);
             }
         }
-
+        [Authorize]
         public IActionResult NewTable()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public  async Task<IActionResult> NewTable(NewTableViewModel model)
         {
@@ -112,18 +121,20 @@ namespace ProjectRestaurant.Controllers
             await _tableService.AddNewTable(mapped,User.Identity.Name);
             return RedirectToAction(nameof(Tables));
         }
+        [Authorize]
         public async Task<IActionResult> DeleteTable(int id)
         {
             await _tableService.DeleteTable(id);
             return RedirectToAction(nameof(Tables));
         }
-
+        [Authorize]
         public IActionResult EditTable(int id)
         {
             var table = _tableService.GetTableById(id);
             var mapped = _mapper.Map<EditTableViewModel>(table);
             return View(mapped);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> EditTable(EditTableViewModel model)
         {
@@ -139,11 +150,34 @@ namespace ProjectRestaurant.Controllers
             }
             return View(model);
         }
+        [Authorize]
         public IActionResult Tables()
         {
             var tables = _tableService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
+
             return View(mapped);
+        }
+        
+        [Authorize]
+        public IActionResult TableDetail(int id)
+        {
+            
+            var session = _restaurantService.GetSessionDetail(id);
+            var mapped = _mapper.Map<SessionViewModel>(session);
+            return View(mapped);
+        }
+        [Authorize]
+        public IActionResult DeliverOrder(int id)
+        {
+            _restaurantService.DeliverOrder( id);
+            return RedirectToAction(nameof(Index));
+        }
+        [Authorize]
+        public IActionResult CloseSession(int id)
+        {
+            _restaurantService.CloseSession(id);
+            return Ok();
         }
     }
 }

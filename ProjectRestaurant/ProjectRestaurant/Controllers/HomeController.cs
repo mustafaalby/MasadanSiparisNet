@@ -26,13 +26,25 @@ namespace ProjectRestaurant.Controllers
 
         public IActionResult Index()
         {
-            var tables = _restaurantService.GetAllTables();
-            var mapped = _mapper.Map<List<TableViewModel>>(tables);
-
-            return View(mapped);
+            return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Tables()
+        {
+            if (Request.Cookies["SessionId"] != null)
+            {
+                return RedirectToAction("Index", "MenuView");
+            }
+            var tables = _restaurantService.GetAllTables();
+            var mapped = _mapper.Map<List<TableViewModel>>(tables);
+            return View(mapped);
+        }
+        
+        public IActionResult AboutUs()
         {
             return View();
         }

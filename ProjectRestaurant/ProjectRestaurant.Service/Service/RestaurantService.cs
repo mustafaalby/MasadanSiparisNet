@@ -130,6 +130,8 @@ namespace ProjectRestaurant.Service.Service
         public async Task<int> OpenNewSession(int tableId)
         {
             Table table = _context.Table.Where(x => x.TableId == tableId).FirstOrDefault();
+            table.IsAvailable = false;
+            _context.Table.Update(table);
             Session newSession = new Session
             {
                 StartDate = DateTime.Now,
@@ -141,6 +143,45 @@ namespace ProjectRestaurant.Service.Service
             var x = _context.Session.OrderByDescending(x => x.SessionId).FirstOrDefault();
             return x.SessionId;
         }
+        public SessionDto GetSessionDetail(int id)
+        {
+            var sessions = _context.Session.Where(x => x.TableId == id).OrderByDescending(x=>x.SessionId).FirstOrDefault();
+            
+            SessionDto sessionDto = new SessionDto
+            {
+                FinishDate = sessions.FinishDate,
+                Order = sessions.Order,
+                SessionId = sessions.SessionId,
+                StartDate = sessions.StartDate,
+                TotalFee = sessions.TotalFee,
+                TableId=sessions.TableId,
+                TableName = sessions.Table.TableName
+            };
+            sessionDto.Order= sessionDto.Order.OrderByDescending(x => x.OrderId).ToList();
+            return sessionDto;
+        }
 
+        public void CloseSession(int id)
+        {
+            var session = _context.Session.Where(x => x.SessionId == id).FirstOrDefault();
+            var table = _context.Table.Where(x => x.TableId == session.TableId).FirstOrDefault();
+            table.IsAvailable = true;
+            _context.Table.Update(table);
+            _context.SaveChanges();
+        }
+
+        public void DeliverOrder(int id)
+        {
+            var orders = _context.Order.Where(x => x.SessionId == id);
+            foreach (var item in orders)
+            {
+                item.isDelivered = true;
+            }
+            foreach (var item in orders)
+            {
+                _context.Order.Update(item);
+            }
+            _context.SaveChanges();
+        }
     }
 }

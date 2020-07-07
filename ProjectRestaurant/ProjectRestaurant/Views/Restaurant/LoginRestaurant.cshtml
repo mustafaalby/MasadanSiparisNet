@@ -1,32 +1,66 @@
 ﻿@model RestaurantSignInViewModel
-@{
-    ViewData["Title"] = "LoginRestaurant";
-}
+
+<style>
+
+    #form {
+        border: 10px solid transparent;
+        padding: 15px;
+        border: 5px;
+        margin-top: 80px;
+        margin-left: 200px;
+        border-style: outset;
+        height: 600px;
+        width: 700px;
+    }
+
+    #text {
+        font-style: italic;
+    }
+
+    #form2 {
+        margin-top: 30px;
+        margin-left: 180px
+    }
+
+    #image {
+        margin-top: 50px;
+        margin-left: 280px;
+        width: 120px;
+        height: 100px
+    }
+
+    #btn {
+        width: 100px;
+    }
+</style>
+@{ ViewData["Title"] = "LoginRestaurant"; }
 
 @using (Html.BeginForm(FormMethod.Post))
 {
-    <div class="container row" >
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row form-group">
-                @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-4 bg-white text-secondary" })
-                @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control" })
 
-            </div>
-            <div class="row form-group">
-                @Html.Label(null, "Şifre", new { @class = "col-md-4 bg-white text-secondary"})
-                @Html.TextBoxFor(x => x.Password, null, new { @class = "col-md-6 form-control", type = "password" })
-            </div>
+<div id="form" class="container row rounded-pill">
 
-            <div class=" " style="text-align:center">
-                <input type="submit" class="btn btn-dark " value="Giriş" />
-            </div>
-            <div style="text-align:center">
-                <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-light " })</div>
-                <div>@Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-light " })</div>
-            </div>
+    <img id="image" src="~/image/iconfinder_lock_372205.png" />
+    @*  <img id="image" src="~/image/iconfinder_Login_49249.png" />*@
+    <div id="form2">
+        <div id="text" class="row form-group">
+            @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-6 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control" })
+
         </div>
+        <div id="text" class="row form-group">
+            @Html.Label(null, "Şifre", new { @class = "col-md-6 bg-white text-secondary" })
+            @Html.TextBoxFor(x => x.Password, null, new { @class = "col-md-6 form-control", type = "password" })
+        </div><br /><br />
 
-        <div class="col-md-2"></div>
+        <div class=" " style="text-align:center">
+            <input id="btn" type="submit" class="btn  btn-success " value="Giriş" />
+        </div>
+        <div style="text-align:center">
+            <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-light " })</div>
+            <div>@Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-light " })</div>
+        </div>
     </div>
-}
+
+
+</div>}

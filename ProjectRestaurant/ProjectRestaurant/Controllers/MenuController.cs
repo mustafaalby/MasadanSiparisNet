@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectRestaurant.Data.Entities;
@@ -20,7 +21,7 @@ namespace ProjectRestaurant.Controllers
             _menuService = menuService;
             _mapper = mapper;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             var menuModel = _menuService.GetMenu();
@@ -28,6 +29,7 @@ namespace ProjectRestaurant.Controllers
             return View(mapped);
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             var productTypes = _menuService.GetProductTypes().ToList().Select(x => new SelectListItem()
@@ -40,7 +42,7 @@ namespace ProjectRestaurant.Controllers
 
             return PartialView();
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Add(MenuViewModel model)
         {
@@ -48,7 +50,7 @@ namespace ProjectRestaurant.Controllers
             _menuService.AddNewMenuContent(menuContent);
             return Ok();
         }
-
+        [Authorize]
         public IActionResult Update(int id)
         {
             var menuContent = _menuService.GetMenuContentById(id);
@@ -64,7 +66,7 @@ namespace ProjectRestaurant.Controllers
 
             return PartialView(mapped);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Update(MenuViewModel model)
         {
@@ -72,7 +74,7 @@ namespace ProjectRestaurant.Controllers
             _menuService.UpdateMenuContent(mapped);
             return Ok();
         }
-
+        [Authorize]
         public IActionResult Delete(int id)
         {
             _menuService.DeleteMenuContent(id);

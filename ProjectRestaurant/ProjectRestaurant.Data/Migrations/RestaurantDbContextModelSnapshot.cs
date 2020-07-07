@@ -202,6 +202,9 @@ namespace ProjectRestaurant.Data.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isDelivered")
+                        .HasColumnType("bit");
+
                     b.HasKey("OrderId");
 
                     b.HasIndex("SessionId");

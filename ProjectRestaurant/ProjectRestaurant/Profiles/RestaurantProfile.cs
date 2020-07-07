@@ -32,6 +32,14 @@ namespace ProjectRestaurant.Profiles
 
             CreateMap<Menu, MenuViewModel>();
             CreateMap<MenuViewModel, Menu>();
+
+            CreateMap<ProductType, ProductTypeViewModel>();
+            CreateMap<ProductTypeViewModel, ProductType>();
+
+            CreateMap<OrderViewModel, OrderDto>();
+
+            CreateMap<SessionViewModel, SessionDto>();
+            CreateMap<SessionDto, SessionViewModel>();
         }
     }
 }
