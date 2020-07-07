@@ -21,7 +21,6 @@ namespace ProjectRestaurant.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
         public async Task< IActionResult> SessionRequest(int id)

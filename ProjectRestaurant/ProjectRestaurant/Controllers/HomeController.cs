@@ -35,10 +35,19 @@ namespace ProjectRestaurant.Controllers
         }
         public IActionResult Tables()
         {
+            if (Request.Cookies["SessionId"] != null)
+            {
+                return RedirectToAction("Index", "MenuView");
+            }
             var tables = _restaurantService.GetAllTables();
             var mapped = _mapper.Map<List<TableViewModel>>(tables);
             return View(mapped);
-    }
+        }
+        
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
