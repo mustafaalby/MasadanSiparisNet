@@ -80,5 +80,20 @@ namespace ProjectRestaurant.Controllers
             _menuService.DeleteMenuContent(id);
             return Ok();
         }
+        public IActionResult Index1()
+        {
+            var productTypes = _menuService.GetProductTypes();
+            var mapped = _mapper.Map<List<ProductTypeViewModel>>(productTypes);
+
+
+            return View(mapped);
+        }
+        public IActionResult GetProduct(int id)
+        {
+            var product = _menuService.GetProductTypeById(id);
+            var mapped = _mapper.Map<List<MenuViewModel>>(product);
+
+            return View(mapped);
+        }
     }
 }
