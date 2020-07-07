@@ -1,13 +1,10 @@
 ﻿@model List<TableViewModel>
 
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 @{
     ViewData["Title"] = "Tables";
 }
 <style>
-    .card-footer a,h5,#newTable {        
-        font-family: 'Courgette', cursive;    
-    }
+  
     #grid {
         display: grid;
         grid-template-columns: auto auto auto;
@@ -52,12 +49,3 @@
 }
 </div>
 
-<script>
-    $(document).ready(function () {
-
-        $("#grid").load("/Restaurant/TablesInside")
-        $("#reload").click(function () {
-            $("#grid").load("/Restaurant/TablesInside")
-        });
-    })
-</script>

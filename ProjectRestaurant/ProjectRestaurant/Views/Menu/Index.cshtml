@@ -3,62 +3,31 @@
 @{
     ViewData["Title"] = "Index";
 }
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-<style>
-    .header{
-        display:flex;
-        justify-content:space-between
-    }
-     td,h1,#addMenuContent{
-        font-family: 'Courgette', cursive;
-    }
-</style>
-<div class="header" >
-    <h1 >Restaurant Menu</h1>
-    <input  id="addMenuContent" type="button" class="btn btn-dark  " value="İçerik Ekle" data-toggle="modal" data-target="#modalTarget" />
+
+<div class="row">
+    <h1>Restaurant Menu</h1>
+    <input id="addMenuContent" type="button" class="btn btn-dark" value="İçerik Ekle" data-toggle="modal" data-target="#modalTarget" />
 </div>
 
-<div style="margin-top:20px" class="container">
-    <table class="table table-dark table-striped table-hover">
-        <thead>
-            <tr>
-                <td><h5><strong>İçerik</strong></h5></td>
-                <td><h5><strong>Fiyat</strong></h5></td>
-                <td><h5><strong>Açıklama</strong></h5></td>
-                <td><h5><strong>Tür</strong></h5></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </thead>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"><strong>İçerik</strong></div>
+        <div class="col-md-1"><strong>Fiyat</strong></div>
+        <div class="col-md-3"><strong>Aciklama</strong></div>
+        <div class="col-md-3"><strong>Tür</strong></div>
+    </div>
 
-        @* <div class="col-md-2"></div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3"><strong>Açiklama</strong></div>
-        <div class="col-md-3"><strong>Tür</strong></div>*@
-
-
-        @foreach (var menu in Model)
-        {
-           @* <div class="row">
-                <div class="col-md-2"><p>@menu.ProductName</p></div>
-                <div class="col-md-1"><p>@menu.Price</p></div>
-                <div class="col-md-3"><p>@menu.Description</p></div>
-                <div class="col-md-3"><p>@menu.ProductType.Type</p></div>
-                <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-info" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
-                <input id="menuContentDelete-@menu.MenuId" type="button" class="btn btn-outline-danger" value="Sil" data-toggle="modal" data-target="#modalTarget" />
-            </div>*@
-            <tbody>
-                <tr>
-                    <td>@menu.ProductName</td>
-                    <td>@menu.Price</td>
-                    <td>@menu.Description</td>
-                    <td>@menu.ProductType.Type</td>
-                    <td> <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-info" value="Güncelle" data-toggle="modal" data-target="#modalTarget" /></td>
-                    <td><input id="menuContentDelete-@menu.MenuId" type="button" class="btn btn-outline-danger" value="Sil" data-toggle="modal" data-target="#modalTarget" /></td>
-                </tr>
-            </tbody>
-        }
-    </table>
+    @foreach (var menu in Model)
+    {
+        <div class="row">
+            <div class="col-md-2"><p>@menu.ProductName</p></div>
+            <div class="col-md-1"><p>@menu.Price</p></div>
+            <div class="col-md-3"><p>@menu.Description</p></div>
+            <div class="col-md-3"><p>@menu.ProductType.Type</p></div>
+            <input id="menuContentUpdate-@menu.MenuId" type="button" class="btn btn-outline-info" value="Güncelle" data-toggle="modal" data-target="#modalTarget" />
+            <input id="menuContentDelete-@menu.MenuId" type="button" class="btn btn-outline-danger" value="Sil" data-toggle="modal" data-target="#modalTarget" />
+        </div>
+    }
 </div>
 
 <div id="modalTarget" class="modal" tabindex="-1" role="dialog">

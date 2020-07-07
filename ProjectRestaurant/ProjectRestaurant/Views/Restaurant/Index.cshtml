@@ -3,11 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+
 <style>
-    p, h5, #reload, .card-footer a,.card-footer  {
-        font-family: 'Courgette', cursive;
-    }
+   
     #isAvaible-True {
         background-color: #39902f;
     }
@@ -99,12 +97,3 @@
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Istek.js"></script>
-<script>
-    $(document).ready(function () {
-
-        $("#grid").load("/Restaurant/TablesInside")
-        $("#reload").click(function () {
-            $("#grid").load("/Restaurant/TablesInside")
-        });
-    })
-</script>
