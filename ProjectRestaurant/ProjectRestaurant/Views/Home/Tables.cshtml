@@ -1,49 +1,71 @@
 ﻿@model List<TableViewModel>
     
 <style>
-   
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size:cover;
+        
+    }
+
     #isAvaible-True {
-        background-color: #39902f;
+        background-color: rgba(0, 0, 0, 0.50);
+    }
+    #isAvaible-True:hover{
+        background-color:rgba(2, 147, 0, 0.85)
     }
 
         #isAvaible-True button {
             cursor: pointer;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0);
         }
 
     #isAvaible-False {
-        background-color: #be2a2a;
+        background-color: rgba(0, 0, 0, 0.50);
         color: currentColor;
         cursor: not-allowed;
-        opacity: 0.8;
         text-decoration: none;
     }
+        #isAvaible-False:hover {
+            background-color: rgba(226, 0, 0, 0.85);
+        }
 
         #isAvaible-False button {
             cursor: not-allowed;
             margin-left: auto;
             margin-right: auto;
+            color:#ffffff;
+            background-color:rgba(255, 255, 255, 0);
         }
 
     #grid {
+        
         display: grid;
         grid-template-columns: auto auto auto;
         padding: 10px;
+        background-color:rgba(56, 56, 56, 0.55);
+        border-radius:25px 25px 25px 25px;    
     }
 
     .card {
         padding: 5px;
         margin: 20px;
-        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 5px 10px 0 rgba(255, 255, 255, 0.1);
         transition: 0.3s;
+        border-color: aliceblue;
     }
 
         .card:hover {
-            box-shadow: 0 10px 20px 0 rgba(0,0,0,0.4);
+            box-shadow: 0 10px 20px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .card .card-header, .card-body {
-            background-color: #ffffff;
-        }
+    .card, .card-header, .card-body {
+        @*background-color: rgba(255, 0, 0, 0.20);*@
+        color: #ffffff;
+    }
+       
 
     .cardText {
         text-align: center;

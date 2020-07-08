@@ -10,7 +10,7 @@ connection.on("receive", function (tableId, CostumerConnectionId) {
     var tableNumber = tableId.split("*")[0];
     var tableName = tableId.split("*")[1];
     
-    var htmlAccept = '<div class="card"><p class=" cardText">' + tableName + ' Oturma Isteği </p><div class="card-footer ' + tableNumber + '" id=' + CostumerConnectionId + '><button class="btn btn-outline-success float-left" id="AcceptButton" >Kabul Et</button><button id="DeclineButton" class="btn btn-outline-danger float-right">Reddet</button></div></div>'
+    var htmlAccept = '<div class="card oturmaIstegi"><p class=" cardText">' + tableName + ' Oturma Isteği </p><div class="card-footer ' + tableNumber + '" id=' + CostumerConnectionId + '><button class="btn btn-outline-success float-left" id="AcceptButton" >Kabul Et</button><button id="DeclineButton" class="btn btn-outline-danger float-right">Reddet</button></div></div>'
     document.getElementById("RequestList").innerHTML += htmlAccept;
 });
 connection.on("SendOrderResponse", function (tableId)

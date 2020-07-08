@@ -1,34 +1,33 @@
 ﻿@model NewRestaurantSignUpViewModel
 
+    <style>
 
-<style>
+        #form {
+            border: 10px solid transparent;
+            padding: 15px;
+            border: 5px;
+            margin-top: 80px;
+            margin-left: 200px;
+            border-style: outset;
+            height: 600px;
+            width: 700px;
+        }
 
-    #form {
-        border: 10px solid transparent;
-        padding: 15px;
-        border: 5px;
-        margin-top: 80px;
-        margin-left: 200px;
-        border-style: outset;
-        height: 600px;
-        width: 700px;
-    }
+        #text {
+            font-style: italic;
+        }
 
-    #text {
-        font-style: italic;
-    }
+        #form2 {
+            margin-top: 30px;
+            margin-left: 150px
+        }
 
-    #form2 {
-        margin-top: 30px;
-        margin-left: 150px
-    }
-
-    #image {
-        margin-left: 280px;
-        width: 120px;
-        height: 100px
-    }
-</style>
+        #image {
+            margin-left: 280px;
+            width: 120px;
+            height: 100px
+        }
+    </style>
 
 
 
@@ -36,39 +35,39 @@
 @using (@Html.BeginForm(FormMethod.Post))
 {
 
-<div id="form" class="container row rounded-pill">
+    <div id="form" class="container row rounded-pill">
 
-    <img id="image" src="~/image/iconfinder_list-add-user_9381.png" />
-    @*  <img id="image" src="~/image/iconfinder_38_user_id_login_image_4307864.png" />*@
+        <img id="image" src="~/image/iconfinder_list-add-user_9381.png" />
+        @*  <img id="image" src="~/image/iconfinder_38_user_id_login_image_4307864.png" />*@
 
-    <div id="form2">
-        <div id="text" class="row form-group">
-            @Html.Label(null, "Email", new { @class = "col-md-6 bg-white text-secondary" })
-            @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control  ", type = "email" })
-        </div>
-        <div id="text" class="row form-group">
-            @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-6 bg-white text-secondary" })
-            @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control" })
-        </div>
-        <div id="text" class="row form-group">
-            @Html.Label(null, "Şifre", new { @class = "col-md-6 bg-white text-secondary" })
-            @Html.TextBoxFor(x => x.Password, null, new { @class = "col-md-6 form-control", type = "password" })
-        </div>
-        <div id="text" class="row form-group">
-            @Html.Label(null, "Şifre Tekrarı", new { @class = "col-md-6  bg-white text-secondary " })
-            @Html.TextBoxFor(x => x.PasswordConfirm, null, new { @class = "col-md-6 form-control ", type = "password" })
-        </div><br /><br />
+        <div id="form2">
+            <div id="text" class="row form-group">
+                @Html.Label(null, "Email", new { @class = "col-md-6 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.Email, null, new { @class = "col-md-6 form-control  ", type = "email" })
+            </div>
+            <div id="text" class="row form-group">
+                @Html.Label(null, "Kullanıcı Adı", new { @class = "col-md-6 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.UserName, null, new { @class = "col-md-6 form-control" })
+            </div>
+            <div id="text" class="row form-group">
+                @Html.Label(null, "Şifre", new { @class = "col-md-6 bg-white text-secondary" })
+                @Html.TextBoxFor(x => x.Password, null, new { @class = "col-md-6 form-control", type = "password" })
+            </div>
+            <div id="text" class="row form-group">
+                @Html.Label(null, "Şifre Tekrarı", new { @class = "col-md-6  bg-white text-secondary " })
+                @Html.TextBoxFor(x => x.PasswordConfirm, null, new { @class = "col-md-6 form-control ", type = "password" })
+            </div><br /><br />
 
-        <div id="text" style="text-align:center">
-            <input class="btn btn-success" type="submit" value="Kayıt Ol" />
+            <div id="text" style="text-align:center">
+                <input class="btn btn-success" type="submit" value="Kayıt Ol" />
+            </div>
+            <div id="text" style="text-align:center">
+                <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })</div>
+                <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger" })</div>
+                <div>@Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-danger" })</div>
+            </div>
         </div>
-        <div id="text" style="text-align:center">
-            <div>@Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })</div>
-            <div>@Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text-danger" })</div>
-            <div>@Html.ValidationMessageFor(x => x.Password, null, new { @class = "text-danger" })</div>
-        </div>
-    </div>
 
 
-</div>}
+    </div>}
 
