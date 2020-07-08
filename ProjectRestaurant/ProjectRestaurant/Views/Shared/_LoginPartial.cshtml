@@ -6,9 +6,6 @@
         @if (SignInManager.IsSignedIn(User))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-action="Index" asp-controller="Contact">İletişim</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-dark" asp-action="Index1" asp-controller="Menu">Menü</a>
             </li>
             <li class="nav-item">
@@ -33,6 +30,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-controller="Home" asp-action="AboutUs">Hakkımızda</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Contact" asp-action="Index">İletişim</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-controller="Restaurant" asp-action="NewRestaurant">Restoran Kayıt</a>
