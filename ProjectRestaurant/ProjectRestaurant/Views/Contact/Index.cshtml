@@ -7,6 +7,13 @@
 <link href="~/css/Contact/Index/form.css" rel="stylesheet" />
 @*<link href="~/css/Contact/Index/map.css" rel="stylesheet" />*@
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        <p>@TempData["Message"]</p>
+    </div>
+}
+
 <div class="container">
     <div style="text-align:center">
         <h2>Bizimle iletişime geçin.</h2>
@@ -35,11 +42,6 @@
         <div class="col-sm">
             @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "contact-form", action = "" }))
             {
-                if (ViewBag.Success == true)
-                {
-                    <span>Mesajınız başarıyla gönderilmiştir.</span>
-                }
-
                 <form action="/action_page.php">
                     <label for="name">Adınız Soyadınız</label>
                     <input type="text" id="name" name="Name" placeholder="Ad Soyad..">
