@@ -8,7 +8,7 @@
 @*<link href="~/css/Contact/Index/map.css" rel="stylesheet" />*@
 
 <div class="container">
-    <div style="text-align:center">
+    <div class="head" style="text-align:center">
         <h2>Bizimle iletişime geçin.</h2>
         <p>Önerileriniz veya diğer konular hakkında bize mesaj bırakın.</p>
     </div>
@@ -25,6 +25,7 @@
             <div class="container">
                 <div class="column">
                     @*<div class="col-md-2"><strong>Adres:</strong></div>*@
+                    <p>Adres:</p>
                     <p>@Model.Neighborhood, @Model.StreetAndNu, @Model.District/@Model.City</p>
                     <p>@ViewBag.PhoneNumber</p>
                     <p>@ViewBag.Email</p>

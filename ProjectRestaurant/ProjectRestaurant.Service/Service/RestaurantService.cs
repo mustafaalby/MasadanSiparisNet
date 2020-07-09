@@ -75,6 +75,12 @@ namespace ProjectRestaurant.Service.Service
 
             return restaurant;
         }
+        public Session GetRestaurantContectInfo(int SessionId)
+        {
+            var Session = _context.Session.Where(x => x.SessionId == SessionId).FirstOrDefault();
+
+            return Session;
+        }
         public async Task<IdentityResult> UpdateRestaurantInfo(Restaurant model)
         {
             var rest = await _userManager.FindByNameAsync(model.UserName);

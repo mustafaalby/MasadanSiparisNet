@@ -21,19 +21,41 @@ namespace ProjectRestaurant.Controllers
             _restaurantService = restaurantService;
         }
 
-        public async Task<IActionResult> Index()
+        public  async Task< IActionResult> Index()
         {
-            var restInfo = await _restaurantService.GetRestaurantInfo(User.Identity.Name);
+            if (User.Identity.IsAuthenticated)
+            {
+                var restInfo1 =await _restaurantService.GetRestaurantInfo(User.Identity.Name);    
+                RestaurantAdresViewModel adress1 = new RestaurantAdresViewModel
+                {
+                    AddressId = restInfo1.RestaurantAddress.AddressId,
+                    City = restInfo1.RestaurantAddress.City,
+                    District = restInfo1.RestaurantAddress.District,
+                    Neighborhood = restInfo1.RestaurantAddress.Neighborhood,
+                    StreetAndNu = restInfo1.RestaurantAddress.StreetAndNu,
+                };
+                ViewBag.Email = restInfo1.Email;
+                ViewBag.PhoneNumber = restInfo1.PhoneNumber;
+                ViewData["GoogleMapApiKey"] = "AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U";
+
+                return View(adress1);
+            }
+            else if (Request.Cookies["SessionId"] == null)
+            {
+                return RedirectToAction("Tables", "Home");
+            }
+            int sessionId = int.Parse(Request.Cookies["SessionId"]);
+            var restInfo =  _restaurantService.GetRestaurantContectInfo(sessionId);
             RestaurantAdresViewModel adress = new RestaurantAdresViewModel
             {
-                AddressId = restInfo.RestaurantAddress.AddressId,
-                City = restInfo.RestaurantAddress.City,
-                District = restInfo.RestaurantAddress.District,
-                Neighborhood = restInfo.RestaurantAddress.Neighborhood,
-                StreetAndNu = restInfo.RestaurantAddress.StreetAndNu,
+                AddressId = restInfo.Table.Restaurant.RestaurantAddress.AddressId,
+                City = restInfo.Table.Restaurant.RestaurantAddress.City,
+                District = restInfo.Table.Restaurant.RestaurantAddress.District,
+                Neighborhood = restInfo.Table.Restaurant.RestaurantAddress.Neighborhood,
+                StreetAndNu = restInfo.Table.Restaurant.RestaurantAddress.StreetAndNu,
             };
-            ViewBag.Email = restInfo.Email;
-            ViewBag.PhoneNumber = restInfo.PhoneNumber;
+            ViewBag.Email = restInfo.Table.Restaurant.Email;
+            ViewBag.PhoneNumber = restInfo.Table.Restaurant.PhoneNumber;
             ViewData["GoogleMapApiKey"] = "AIzaSyDF_dzWQK0NUe3px2y31Qs_ejSKKZB5k2U";
 
             return View(adress);
