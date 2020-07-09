@@ -72,7 +72,7 @@ namespace ProjectRestaurant.Controllers
                 body.AppendLine("Konu: " + model.Subject);
                 body.AppendLine("Mesaj: " + model.Message);
                 _contactService.MailSender(body.ToString());
-                ViewBag.Success = true;
+                TempData["Message"] = "Mesajınız başarılı bir şekilde gönderildi.";
             }
             return RedirectToAction("Index");
         }
