@@ -117,6 +117,10 @@ namespace ProjectRestaurant.Controllers
         [HttpPost]
         public  async Task<IActionResult> NewTable(NewTableViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var mapped = _mapper.Map<Table>(model);
             await _tableService.AddNewTable(mapped,User.Identity.Name);
             return RedirectToAction(nameof(Tables));

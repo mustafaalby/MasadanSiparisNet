@@ -50,9 +50,9 @@ namespace ProjectRestaurant.Service.Service
             _context.Set<Menu>().Add(menuContent);
             _context.SaveChanges();
         }
-        public int GetTableBySessionId(int id)
+        public Table GetTableBySessionId(int id)
         {
-            return _context.Session.Where(x => x.SessionId == id).FirstOrDefault().Table.TableId;
+            return _context.Session.Where(x => x.SessionId == id).FirstOrDefault().Table;
         }
 
         /// <summary>
@@ -134,6 +134,16 @@ namespace ProjectRestaurant.Service.Service
                  Order=session.Order
             };
             return sessionDto;
+        }
+        public bool CheckIfTableIsAvaibleBySessionId(int sessionId)
+        {
+            var result = _context.Session.Where(x => x.SessionId == sessionId).FirstOrDefault();
+            if (result.Table.IsAvailable == true)
+            {
+                return true;
+            }
+            else { return false; }
+            
         }
     }
 }

@@ -3,8 +3,48 @@
     ViewData["Title"] = "MySession";
 }
 <style>
-    h2,th,td,.card {
-        font-family: 'Courgette', cursive;
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        transition: 0.3s;
+        border-color: white;
+        color: white;
+    }
+        .card:hover {
+            box-shadow: 0 5px 10px 0 white;
+        }
+    .tableId {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 25px 25px 20px 25px;
+        padding: 10px 10px 10px 10px;
+    }
+    .tableId h2{
+        color:rgb(255, 255, 255);
+    }
+    .tableId a{
+        background-color:rgba(0, 0, 0, 0);
+        color:rgb(255, 255, 255);
+        border-color:rgb(255, 255, 255);
+    }
+    .tableId a:hover {
+        background-color: #ee7500;
+        color: rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+    .card button {
+        color: white;
+        border-color: white;
+    }
+
+    .card button:hover {
+        border-color: white;
+        background-color: rgba(255, 106, 0, 1.00);
     }
 </style>
 <div class="container tableId" id="@Model.TableId">

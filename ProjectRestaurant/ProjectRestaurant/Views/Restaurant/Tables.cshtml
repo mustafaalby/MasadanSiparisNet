@@ -4,30 +4,56 @@
     ViewData["Title"] = "Tables";
 }
 <style>
-  
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
     #grid {
         display: grid;
         grid-template-columns: auto auto auto;
         padding: 10px;
+        background-color: rgba(56, 56, 56, 0.55);
+        border-radius: 25px 25px 25px 25px;
     }
 
     .card {
-        background-color: #c7c2c2;
+        background-color: rgba(0, 0, 0, 0.70);
         padding: 5px;
         margin: 20px;
+        box-shadow: 0 5px 10px 0 rgba(255, 255, 255, 0.1);        
+        transition: 0.3s;
+        color: #ffffff;
+        border-color:aliceblue;
     }
-
-        .card .card-header, .card-body {
-            background-color: #ffffff;
+        .card:hover {
+            background-color: rgba(225, 138, 0, 0.95);
+            box-shadow: 0 10px 20px 0 rgba(255, 255, 255, 0.2);
         }
+
+        .card a:hover {
+            background-color: rgba(255, 255, 255, 0);
+            color: #ffffff;
+        }
+
+    .card, .card-header, .card-body {
+    }
 
     .cardText {
         text-align: center;
     }
+    #newTable {
+        background-color: rgba(0, 0, 0, 0.0)
+    }
+        #newTable:hover {
+            background-color: rgba(225, 138, 0, 0.85);
+            color: #ffffff;
+        }
 </style>
 
-<div class="">
-    <a id="newTable" class="btn btn-outline-primary float-right" asp-action="NewTable" asp-controller="Restaurant">Yeni Masa</a>
+<div >
+    <a id="newTable" class="btn btn-outline-light float-left" asp-action="NewTable" asp-controller="Restaurant">Yeni Masa</a>
     
 </div>
 <div class="container " id="grid">
@@ -42,7 +68,7 @@
 
         <div class="card-footer" id="@item.TableId">
             <div style="text-align:center">
-                <a class=" btn btn-secondary" asp-action="EditTable" asp-controller="Restaurant" asp-route-id="@item.TableId">Düzenle</a>
+                <a class=" btn btn-outline-light" asp-action="EditTable" asp-controller="Restaurant" asp-route-id="@item.TableId">Düzenle</a>
             </div>
         </div>
     </div>

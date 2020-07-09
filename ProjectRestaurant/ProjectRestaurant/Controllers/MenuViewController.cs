@@ -30,11 +30,22 @@ namespace ProjectRestaurant.Controllers
             if (Request.Cookies["SessionId"]== null){
                 return RedirectToAction("Tables", "Home");
             }
+            var sessionId =int.Parse( Request.Cookies["SessionId"]);
+            var result= _service.CheckIfTableIsAvaibleBySessionId(sessionId);
+
+            if (result == true)
+            {
+                Response.Cookies.Delete("SessionId");
+                return RedirectToAction("Tables", "Home");
+                //Eğer müşteri sayfasını kapattıktan sonra Restoran hesabı kapatmışsa, müşteri bağlandığında bunun kontrolü yapılır
+            }
+
             var productTypes = _service.GetProductTypes();
             var mapped = _mapper.Map<List<ProductTypeViewModel>>(productTypes);
-            var tableId = _service.GetTableBySessionId(int.Parse(Request.Cookies["SessionId"]));
+            var table = _service.GetTableBySessionId(int.Parse(Request.Cookies["SessionId"]));
             TempData["SessionId"] = Request.Cookies["SessionId"];
-            ViewBag.tableId = tableId;
+            ViewBag.tableId = table.TableId;
+            ViewBag.tableName = table.TableName;
 
             return View(mapped);
         }

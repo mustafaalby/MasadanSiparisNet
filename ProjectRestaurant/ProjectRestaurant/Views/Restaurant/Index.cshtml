@@ -5,42 +5,75 @@
 }
 
 <style>
-   
-    #isAvaible-True {
-        background-color: #39902f;
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
     }
+    #temp {
+        padding:10px 10px 10px 0px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius:25px 25px 20px 25px;
+    }
+    #isAvaible-True {
+        background-color: rgba(0, 0, 0, 0.50);
+    }
+        #isAvaible-True:hover {
+            background-color: rgba(2, 147, 0, 0.85)
+        }
 
         #isAvaible-True a {
             cursor: not-allowed;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0);
         }
 
     #isAvaible-False {
-        background-color: #be2a2a;
+        background-color: rgba(0, 0, 0, 0.50);
         color: currentColor;
     }
+        #isAvaible-False:hover {
+            background-color: rgba(226, 0, 0, 0.85);
+        }
 
         #isAvaible-False a {
             cursor: pointer;
+            background-color: rgba(255, 255, 255, 0);
+            color: #ffffff;
         }
-
-    #grid {
+    .oturmaIstegi {
+        background-color: rgba(255, 255, 255, 0);
+        color: #ffffff;
+    }
+    .col-md-4 {
+        background-color: rgba(56, 56, 56, 0.55);
+        border-radius: 25px 25px 25px 25px;
+        
+        
+    }   
+        #grid {
         display: grid;
         grid-template-columns: auto auto auto;
         padding: 10px;
+        background-color: rgba(56, 56, 56, 0.55);
+        border-radius: 25px 25px 25px 25px;
     }
 
     .card {
         padding: 5px;
         margin: 20px;
-        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 5px 10px 0 rgba(255, 255, 255, 0.1);
+        transition: 0.3s;
+        border-color: aliceblue;
     }
 
         .card:hover {
-            box-shadow: 0 10px 20px 0 rgba(0,0,0,0.4);
+            box-shadow: 0 10px 20px 0 rgba(255, 255, 255, 0.2);
         }
 
         .card .card-header, .card-body {
-            background-color: #ffffff;
+            color: #ffffff;
         }
 
     .cardText {
@@ -52,7 +85,7 @@
         overflow-y: scroll;
     }
 </style>
-<div> <button class="btn btn-outline-secondary float-right" id="reload">Yenile</button></div>
+
 <div class="container row" id="temp">
     <div class="col-md-8">
 
@@ -87,8 +120,8 @@
             }
         </div>
     </div>
-    <div style="margin-top:40px" class="col-md-4">
-        <div id="RequestList">
+    <div  class="col-md-4">
+        <div style="margin-top:10px" id="RequestList">
 
         </div>
     </div>

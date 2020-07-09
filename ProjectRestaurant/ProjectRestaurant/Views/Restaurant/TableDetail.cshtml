@@ -2,7 +2,42 @@
 @{
     ViewData["Title"] = "MySession";
 }
-
+<style>
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .tableId {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 25px 25px 20px 25px;
+        padding: 10px 10px 10px 10px;
+    }
+    .tableId h2{
+        color:white;
+    }
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        transition: 0.3s;
+        border-color: white;
+        color: white;
+        
+    }
+        .card:hover {
+            box-shadow: 0 5px 10px 0 white;
+        }
+    .card a{
+        color:white;
+        border-color:white;
+    }
+    .card a:hover{
+        border-color:white;
+        background-color:rgba(255, 106, 0, 1.00);
+        
+    }
+</style>
 <div class="container tableId" id="TableDetail">
     <div><h2>@Model.TableName</h2></div>
     <div class="row">
@@ -51,10 +86,10 @@
                         <div><p style="text-align:center">Masa :@Model.TableName</p></div>
                         <div><p style="text-align:center">Başlangıç: @Model.StartDate</p></div>
                         <div><p style="text-align:center">Toplam Fiyat:@Model.TotalFee</p> </div>
-                        <div style="text-align:center">
+                        <div style="text-align:center" >
 
-                            <a asp-action="DeliverOrder" asp-controller="Restaurant" asp-route-id="@Model.SessionId" class="btn btn-outline-dark">Sipariş Hazır</a>
-                            <div id="@Model.TableId"><a asp-action="CloseSession" asp-controller="Restaurant" asp-route-id="@Model.SessionId" id="closeSession" class="btn btn-outline-dark">Hesabı Kapat</a></div>
+                            <a  asp-action="DeliverOrder" asp-controller="Restaurant" asp-route-id="@Model.SessionId" class="btn btn-outline-dark float-left"    >Sipariş Hazır</a>
+                            <div class="float-right" id="@Model.TableId"><a asp-action="CloseSession" asp-controller="Restaurant" asp-route-id="@Model.SessionId" id="closeSession" class="btn btn-outline-dark">Hesabı Kapat</a></div>
                         </div>
                         
 

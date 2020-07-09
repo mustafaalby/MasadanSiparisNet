@@ -1,12 +1,39 @@
 ﻿@model List<ProductTypeViewModel>
 
 <style>
-   
+    body {
+        
+        background-image: url('image/cafeBackground.jpg ');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .col-md-4 a{
+        background-color: rgba(2, 147, 0, 0);
+        color:rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+    .col-md-4 button {
+        background-color: rgba(2, 147, 0, 0);
+        color: rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+
+
+    .col-md-4 a:hover {
+        background-color: #ee7500;
+        border-color: rgb(255, 255, 255);
+    }
+    .col-md-4 button:hover {
+        background-color: #ee7500;
+        border-color: rgb(255, 255, 255);
+    }
+
     #grid {
         display: grid;
         grid-template-columns: 20% 20% 20% 20% 20%;
-        padding-left:10px;
-        padding-right:10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     #grid div{
         text-align:center;  
@@ -31,8 +58,14 @@
         -moz-text-align-last: center;
         text-align-last: center;
     }
+    .tableId {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 25px 25px 20px 25px;
+        padding: 10px 10px 10px 10px;
+        
+    }
 </style>
-<div class="container tableId" id="@ViewBag.tableId" >
+<div class="container tableId " id="@ViewBag.tableId*@ViewBag.tableName" >
     
     <div class="row">
         
@@ -122,25 +155,32 @@
             event.target.parentElement.parentElement.remove();
         }
         if (event.target.id == "makeOrder") {
+            
             var order = [];
             var table = document.getElementById("sepet");
-            for (var i = 0; i < table.childElementCount; i++) {
-                var temp = { ProductName: table.children[i].children[0].innerText, Price: parseInt(table.children[i].children[1].innerText), Quantity: parseInt(table.children[i].children[2].innerText) };
-                order.push(temp);                
-            }
-            $.ajax({
-                url: '/MenuView/Order',
-                type: 'POST',
-                dataType: 'json',
-                data: {order
-                },
-                statusCode: {
-                    200: function () {
-                        console.log("başarılı");
-                    }
+            if (table.childElementCount > 0) {
+                for (var i = 0; i < table.childElementCount; i++) {
+                    var temp = { ProductName: table.children[i].children[0].innerText, Price: parseInt(table.children[i].children[1].innerText), Quantity: parseInt(table.children[i].children[2].innerText) };
+                    order.push(temp);
                 }
-            });
-            
+                while (table.firstChild) {
+                    table.removeChild(table.lastChild);
+                }
+                $.ajax({
+                    url: '/MenuView/Order',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        order
+                    },
+                    statusCode: {
+                        200: function () {
+                            alert("Siparişiniz Başarıyla İletildi");
+                        }
+                    }
+                });
+            }
+            else { alert("Sepetiniz Boş") }
         }
     });
 </script>
