@@ -4,7 +4,7 @@
 
 Masadan Sipariş, Kodluyoruz Akademinin 42.İstanbul C# .Net Core ile MVC Bootcamp'i için bitirme projesi kapsamında geliştirilmiş bir uygulamadır.
 
-![masadan_siparis](screenshot_1.png)
+![masadan_siparis](Screenshot_1.png)
 
 ## Proje Neyi Hedefliyor?
 Masadan Sipariş, elde taşınan menüyü kaldırarak, menüyü ve hesap işlemlerinizi telefonunuza ve bilgisayarınıza taşır ve bu şekilde teması en aza indirir.
