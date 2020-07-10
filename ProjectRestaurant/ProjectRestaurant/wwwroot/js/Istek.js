@@ -17,7 +17,7 @@ connection.on("SendOrderResponse", function (tableId)
 {
     var tableNumber = tableId.split("*")[0];
     var tableName = tableId.split("*")[1];
-    var htmlAccept = '<div class="card"><p class=" cardText">' + tableName + ' Yeni Sipariş </p><div class="card-footer " style="text-align:center"><a class="btn btn-outline-secondary" target="_blank" href="/Restaurant/TableDetail/' + tableNumber + '">Yeni Sipariş</a></div></div>'
+    var htmlAccept = '<div class="card oturmaIstegi"><p class=" cardText">' + tableName + ' Yeni Sipariş </p><div class="card-footer " style="text-align:center"><a class="btn btn-outline-light" target="_blank" href="/Restaurant/TableDetail/' + tableNumber + '">Yeni Sipariş</a></div></div>'
     document.getElementById("RequestList").innerHTML += htmlAccept;
 });
 
@@ -30,10 +30,11 @@ connection.on("Request", function (message)
     document.getElementById("RequestList").append(node);
 });
 
-connection.on("CheckoutResponse", function (tableId ,customerConId) {
+connection.on("CheckoutResponse", function (tableId ) {
     
-
-    var htmlAccept = '<div class="card"><p class=" cardText">Masa :' + tableId + ' Hesap İsteği </p><div class="card-footer " style="text-align:center"><a class="btn btn-outline-secondary" target="_blank" href="/Restaurant/TableDetail/' + tableId +'">Hesap İsteği</a></div></div>';
+    var tableNumber = tableId.split("*")[0];
+    var tableName = tableId.split("*")[1];
+    var htmlAccept = '<div class="card oturmaIstegi"><p class=" cardText">' + tableName + ' Hesap İsteği </p><div class="card-footer " style="text-align:center"><a class="btn btn-outline-light" target="_blank" href="/Restaurant/TableDetail/' + tableNumber + '">Hesap İsteği</a></div></div>';
     document.getElementById("RequestList").innerHTML += htmlAccept;
 });
 

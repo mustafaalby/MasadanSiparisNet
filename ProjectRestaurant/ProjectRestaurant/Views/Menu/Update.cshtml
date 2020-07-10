@@ -2,8 +2,16 @@
 @{
     ViewData["Title"] = "Update";
 }
-
-<div class="container">
+<style>
+    .modal-content{background-color:rgba(0, 0, 0, 0.95)}
+    #modalTitle{
+        color:white
+    }
+    label {
+        color: white;
+    }
+</style>
+<div class="container addModal">
     <div class="row">
         @Html.TextBoxFor(x => x.MenuId, null, new { @class = "col-md-8", type = "hidden", id = "menuId" })
     </div>
@@ -29,7 +37,7 @@
     </div>
 
     <div class="row">
-        <button id="updateMenuContent" type="button" class="btn btn-dark">Güncelle</button>
+        <button id="updateMenuContent" type="button" class="btn btn-outline-light">Güncelle</button>
     </div>
 </div>
 

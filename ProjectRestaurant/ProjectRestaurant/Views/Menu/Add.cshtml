@@ -2,7 +2,18 @@
 @{
     ViewData["Title"] = "Add";
 }
+    <style>
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.95)
+        }
 
+        #modalTitle {
+            color: white
+        }
+        label{
+            color:white;
+        }
+    </style>
 <div class="container">
     <div class="row">
         @Html.Label("ProductName", "Ürün Adı", new { @class = "col-md-4" })
@@ -26,7 +37,7 @@
     </div>
 
     <div class="row">
-        <button id="saveMenuContent" type="button" class="btn btn-dark">Kaydet</button>
+        <button id="saveMenuContent" type="button" class="btn btn-outline-light">Kaydet</button>
     </div>
 </div>
 
