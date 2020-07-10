@@ -3,25 +3,36 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <style>
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: Arial;
+    }
     * {
         box-sizing: border-box;
     }
 
-    body {
-        background-color: #f1f1f1;
-        padding: 20px;
-        font-family: Arial;
+    .more {
+        display: none
     }
+
 
     /* Center website */
     .main {
         max-width: 1000px;
+        padding: 10px 20px 10px 20px;
         margin: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 25px;
     }
 
     h1 {
         font-size: 50px;
+        color:white;
         word-break: break-all;
     }
 
@@ -29,17 +40,17 @@
         margin: 10px -16px;
     }
 
-        /* Add padding BETWEEN each column */
-        .row,
-        .row > .column {
-            padding: 8px;
-        }
+    /* Add padding BETWEEN each column */
+
 
     /* Create three equal columns that floats next to each other */
     .column {
-        float: left;
-        width: 33.33%;
-        display: none; /* Hide all elements by default */
+        margin-top:10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+        text-align: center;
+        color:white;    
     }
 
     /* Clear floats after rows */
@@ -61,7 +72,7 @@
     }
 
     /* Style the buttons */
-    .btn {
+    .filterButton {
         border: none;
         outline: none;
         padding: 12px 16px;
@@ -69,31 +80,42 @@
         cursor: pointer;
     }
 
-        .btn:hover {
+        .filterButton:hover {
             background-color: #ddd;
         }
 
-        .btn.active {
+         .active {
             background-color: #666;
             color: white;
         }
 
-    #saveMenuContent {
-        background-color: #29a329;
-        color: azure;
+    input[type=text]{
+        background-color:rgba(0, 0, 0, 0.8);
+        color:white;
+        border:5px solid solid;
+        border-color:white;
+        border-radius:2px;
+        transition:0.3s;
     }
-
-    #kapat {
-        background-color: black;
-        color: azure;
+    input[type=text]:focus{
+        box-shadow:0 5px 10px 0 rgba(255, 255, 255, 0.8);
     }
-
+    select {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+    }
     #modalTitle {
-        margin-left: 130px;
+        margin:auto;
         font-style: italic;
-        color: #29a329;
+        color: white;
         font-size: 30px;
     }
+    .modal-content {
+        background-color: rgba(0, 0, 0, 1);
+        color: white;        
+        text-align:center;
+    }
+    
 </style>
 <body>
 
@@ -106,107 +128,140 @@
 
 
         <div id="myBtnContainer">
-            <button class="btn active" onclick="filterSelection('all')">Tüm Menü</button>
-
-            <button class="btn" onclick="filterSelection('yemek')">Ana Yemekler</button>
-            <button class="btn" onclick="filterSelection('burger')">Burgerler</button>
-            <button class="btn" onclick="filterSelection('makarna')">Makarnalar</button>
-            <button class="btn" onclick="filterSelection('salata')">Salatalar</button>
-            <button class="btn" onclick="filterSelection('tatli')">Tatlılar</button>
-            <button class="btn" onclick="filterSelection('icecek')">İçecekler</button>
-            <button id="addMenuContent" data-toggle="modal" data-target="#modalTarget" class="btn" onclick="filterSelection('people')">İçerik Ekle</button>
+            <button class="btn active filterButton" onclick="filterSelection('all')">Tüm Menü</button>
+            @*
+                <button class="btn" onclick="filterSelection('yemek')">Ana Yemekler</button>
+                <button class="btn" onclick="filterSelection('burger')">Burgerler</button>
+                <button class="btn" onclick="filterSelection('makarna')">Makarnalar</button>
+                <button class="btn" onclick="filterSelection('salata')">Salatalar</button>
+                <button class="btn" onclick="filterSelection('tatli')">Tatlılar</button>
+                <button class="btn" onclick="filterSelection('icecek')">İçecekler</button>*@
+            @foreach (var item in Model)
+            {
+                <button class="btn filterButton" onclick="filterSelection('@item.Type')">@item.Type</button>
+            }
+            <button id="addMenuContent" data-toggle="modal" data-target="#modalTarget" class="btn filterButton" onclick="filterSelection('people')">İçerik Ekle</button>
 
 
         </div>
 
         <!-- Portfolio Gallery Grid -->
-        <div class="row">
-            @foreach (var menu in Model)
+        <div class="">
+            @foreach (var item in Model)
             {
-                @if (menu.ProductTypeId == 1)
-                {<div class="column yemek">
-                        <div class="content">
-                            <img src="~/img/resim-165758XG.jpg" alt="anayemekler" style="width:100%" />
-                            <h4>  @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })</h4>
 
-                        </div>
-                    </div>
-
-                }
-
-                @if (menu.ProductTypeId == 2)
+                @if (item.Menu.Count > 0)
                 {
-                    <div class="column burger">
-                        <div class="content">
+                    
+            <div class="column @item.Type ">
+                <h3>@item.Type</h3>
+                <table class="table table-dark table-hover">
+                    @foreach (var item2 in item.Menu)
+                    {
+                        <tbody >
+                            <tr >
+                                <td style="width:30%;vertical-align:middle">@item2.ProductName</td>
+                                <td style="width:30%;vertical-align:middle">
+                                    <span data-toggle="modal" data-target="#modalTarget" class="less">@item2.Description.Substring(0, 10)</span><span class="dots">...</span>
+                                    <span class="more">@item2.Description</span>
+                                </td>
+                                <td style="width:30%;vertical-align:middle">@item2.Price ₺</td>
+                                <td style="width:5%;vertical-align:middle"> <input id="menuContentUpdate-@item2.MenuId" type="button" class="btn btn-outline-light" value="Güncelle" data-toggle="modal" data-target="#modalTarget" /></td>
+                                <td style="width:5%;vertical-align:middle"><input id="menuContentDelete-@item2.MenuId" type="button" class="btn btn-outline-light" value="Sil" data-toggle="modal" data-target="#modalTarget" /></td>
 
-                            <img src="~/img/burger.jpg" alt="burgerler" style="width:100%" />
-                            <h4>@Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })</h4>
-
-
-                        </div>
-                    </div>
-
-
-
-                }
-
-                @if (menu.ProductTypeId == 3)
-                {
-                    <div class="column makarna">
-                        <div class="content">
-
-                            <img src="~/img/renkli_spagetti-9f1db2fd-ff93-4849-8d04-ed61a6e7b834.jpg" alt="Makarnalar" style="width:92%" />
-                            @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
-
-                        </div>
-                    </div>
-
-
-
-                }
-                @if (menu.ProductTypeId == 1002)
-                {
-                    <div class="column salata">
-                        <div class="content">
-                            <img src="~/img/salad.jpg" alt="salatalar" style="width:80%" />
-
-                            @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
-
-                        </div>
-                    </div>
-
-
-
-                }
-                @if (menu.ProductTypeId == 1003)
-                {
-                    <div class="column tatli">
-                        <div class="content">
-
-                            <img src="~/img/tatlı.jpg" alt="tatlılar" style="width:80%" />
-                            @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
-
-                        </div>
-                    </div>
-
-
-
-                }
-                @if (menu.ProductTypeId == 1004)
-                {
-                    <div class="column icecek">
-                        <div class="content">
-                            <img src="~/img/coofee.jpg" alt="icecekler" style="width:100%" />
-
-                            @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
-
-                        </div>
-                    </div>
-
-
-
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
                 }
             }
+            @*@foreach (var menu in Model)
+                {
+                    @if (menu.ProductTypeId == 1)
+                    {<div class="column yemek">
+                            <div class="content">
+                                <img src="~/img/resim-165758XG.jpg" alt="anayemekler" style="width:100%" />
+                                <h4>  @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })</h4>
+
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (menu.ProductTypeId == 2)
+                    {
+                        <div class="column burger">
+                            <div class="content">
+
+                                <img src="~/img/burger.jpg" alt="burgerler" style="width:100%" />
+                                <h4>@Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })</h4>
+
+
+                            </div>
+                        </div>
+
+
+
+                    }
+
+                    @if (menu.ProductTypeId == 3)
+                    {
+                        <div class="column makarna">
+                            <div class="content">
+
+                                <img src="~/img/renkli_spagetti-9f1db2fd-ff93-4849-8d04-ed61a6e7b834.jpg" alt="Makarnalar" style="width:92%" />
+                                @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
+
+                            </div>
+                        </div>
+
+
+
+                    }
+                    @if (menu.ProductTypeId == 1002)
+                    {
+                        <div class="column salata">
+                            <div class="content">
+                                <img src="~/img/salad.jpg" alt="salatalar" style="width:80%" />
+
+                                @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
+
+                            </div>
+                        </div>
+
+
+
+                    }
+                    @if (menu.ProductTypeId == 1003)
+                    {
+                        <div class="column tatli">
+                            <div class="content">
+
+                                <img src="~/img/tatlı.jpg" alt="tatlılar" style="width:80%" />
+                                @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
+
+                            </div>
+                        </div>
+
+
+
+                    }
+                    @if (menu.ProductTypeId == 1004)
+                    {
+                        <div class="column icecek">
+                            <div class="content">
+                                <img src="~/img/coofee.jpg" alt="icecekler" style="width:100%" />
+
+                                @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary " })
+
+                            </div>
+                        </div>
+
+
+
+                    }
+                }*@
 
         </div>
 
@@ -259,7 +314,16 @@
             });
         }
     </script>
+    <script>
+        document.body.addEventListener("click", function (event) {
+            if (event.target.className == "less") {
+                
+                document.getElementsByClassName("modal-body")[0].innerHTML = event.target.parentElement.children[2].innerHTML;
+                document.getElementsByClassName("modal-title")[0].innerHTML = event.target.parentElement.parentElement.children[0].innerHTML;
+            }
+        });
 
+    </script>
 
     <div id="modalTarget" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -267,14 +331,14 @@
                 <div class="modal-header">
                     <h1 id="modalTitle" class="modal-title">Detay</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span style="color:white;" aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div id="modalBody" class="modal-body">
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="kapat" class="btn" data-dismiss="modal">Kapat</button>
+                    <button type="button" id="kapat" class="btn btn-outline-light" data-dismiss="modal">Kapat</button>
                 </div>
             </div>
         </div>

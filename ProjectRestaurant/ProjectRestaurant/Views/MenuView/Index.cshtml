@@ -2,28 +2,33 @@
 
 <style>
     body {
-        
         background-image: url('image/cafeBackground.jpg ');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
     }
-    .col-md-4 a{
+
+    .col-md-4 a {
         background-color: rgba(2, 147, 0, 0);
-        color:rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
         border-color: rgb(255, 255, 255);
     }
+
     .col-md-4 button {
         background-color: rgba(2, 147, 0, 0);
         color: rgb(255, 255, 255);
         border-color: rgb(255, 255, 255);
     }
 
+    .more {
+        display: none
+    }
 
     .col-md-4 a:hover {
         background-color: #ee7500;
         border-color: rgb(255, 255, 255);
     }
+
     .col-md-4 button:hover {
         background-color: #ee7500;
         border-color: rgb(255, 255, 255);
@@ -35,72 +40,91 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-    #grid div{
-        text-align:center;  
-        vertical-align:middle;
-        padding-bottom:25px;
-        padding-top:25px;
-        margin-top:auto;
-        margin-bottom:auto;
-    }
-    #grid .row{
-        margin-left:auto;
-        margin-right:auto;
-    }
+
+        #grid div {
+            text-align: center;
+            vertical-align: middle;
+            padding-bottom: 25px;
+            padding-top: 25px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        #grid .row {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
     #quantityBox {
         resize: none;
         width: 50px;
         height: 40px;
-        
-        
         white-space: normal;
         text-align: justify;
         -moz-text-align-last: center;
         text-align-last: center;
     }
+
     .tableId {
         background-color: rgba(0, 0, 0, 0.8);
         border-radius: 25px 25px 20px 25px;
         padding: 10px 10px 10px 10px;
-        
     }
-</style>
-<div class="container tableId " id="@ViewBag.tableId*@ViewBag.tableName" >
+    .modal-content {
+        background-color: rgba(0, 0, 0, 1);
+        color: white;
+        text-align:center;  
+    }
+    #modalTitle {
+        margin: auto;
+        font-style: italic;
+        color: white;
+        font-size: 30px;
+    }
     
+</style>
+<div class="container tableId " id="@ViewBag.tableId*@ViewBag.tableName">
+
     <div class="row">
-        
+
         <div class="col-md-8">
             @for (int i = 0; i < Model.Count; i++)
             {<div class="card">
-                    <div class="panel bg-light panel-default">
-                        <div class="panel-heading">
-                            <h4 class="card-header" style="text-align:center">
-                                <a style="color:#000000" data-toggle="collapse" href="@("#collapse"+i)">@Model[i].Type</a>
-                            </h4>
-                        </div>
-                        <div id="@("collapse"+i)" class="panel-collapse collapse">
-                            @for (int k = 0; k < Model[i].Menu.Count; k++)
-                            {
-                                <div class="row " id="grid">
-                                    <div class="menu-text">@Model[i].Menu[k].ProductName</div>
-                                    <div>@Model[i].Menu[k].Description</div>
-                                    <div>@Model[i].Menu[k].Price ₺</div>
-                                    <div class="row">
-                                        <button id="subQuantity" class="btn btn-outline-danger">-</button>
-                                        <textarea disabled="disabled" id="quantityBox" class="form-control" rows="1" maxlength="2">1</textarea>
-                                        <button id="addQuantity" class="btn btn-outline-success">+</button>
+                    @if (Model[i].Menu.Count > 0)
+                    {
+                        <div class="panel bg-light panel-default">
+                            <div class="panel-heading">
+                                <h4 class="card-header" style="text-align:center">
+                                    <a style="color:#000000" data-toggle="collapse" href="@("#collapse"+i)">@Model[i].Type</a>
+                                </h4>
+                            </div>
+                            <div id="@("collapse"+i)" class="panel-collapse collapse">
+                                @for (int k = 0; k < Model[i].Menu.Count; k++)
+                                {
+                                    <div class="row " id="grid">
+                                        <div class="menu-text">@Model[i].Menu[k].ProductName</div>
+                                        <div>
+                                            <span data-toggle="modal" data-target="#myModal" class="less">@Model[i].Menu[k].Description.Substring(0, 10)</span><span class="dots">...</span>
+                                            <span class="more">@Model[i].Menu[k].Description</span>
+                                        </div>
+                                        <div>@Model[i].Menu[k].Price ₺</div>
+                                        <div class="row">
+                                            <button id="subQuantity" class="btn btn-outline-danger">-</button>
+                                            <textarea disabled="disabled" id="quantityBox" class="form-control" rows="1" maxlength="2">1</textarea>
+                                            <button id="addQuantity" class="btn btn-outline-success">+</button>
+                                        </div>
+                                        <div><button id="Add" class="btn btn-outline-primary">+</button></div>
                                     </div>
-                                    <div><button id="Add" class="btn btn-outline-primary">+</button></div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             }
 
         </div>
-        <div class="col-md-4" >            
-            <table class="table table-dark table-striped table-hover"   >
+        <div class="col-md-4">
+            <table class="table table-dark table-striped table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Ürün</th>
@@ -120,13 +144,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 id="modalTitle" class="modal-title">Detay</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="color:white;" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Istek.js"></script>
 <script type="text/javascript">
 
-    
-    document.body.addEventListener("click", function (event)
-    {
+
+    document.body.addEventListener("click", function (event) {
         if (event.target.id == "Add") {
             var yemek = event.target.parentElement.parentElement.children[0].innerText;
             var fiyat = event.target.parentElement.parentElement.children[2].innerText.split(" ")[0];
@@ -135,27 +177,26 @@
             fiyat = parseInt(fiyat);
             var toplam = fiyat * adet;
             if (adet != 0) {
-                var order = '<tr id=><td>' + yemek + '</td><td>' + fiyat + '₺</td><td>' + adet + '</td><td>' + toplam + '₺</td><td><button id="deleteFromBasket" class="btn btn-outline-warning">-</button</td></tr > ';            
-            document.getElementById("sepet").innerHTML += order;
+                var order = '<tr id=><td>' + yemek + '</td><td>' + fiyat + '₺</td><td>' + adet + '</td><td>' + toplam + '₺</td><td><button id="deleteFromBasket" class="btn btn-outline-warning">-</button</td></tr > ';
+                document.getElementById("sepet").innerHTML += order;
             }
         }
-        if (event.target.id == "subQuantity")
-        {
+        if (event.target.id == "subQuantity") {
             var quantity = parseInt(event.target.parentElement.children[1].value);
 
-            if (quantity == 0) { } else { quantity = quantity -1; }
-            event.target.parentElement.children[1].value = quantity ;
+            if (quantity == 0) { } else { quantity = quantity - 1; }
+            event.target.parentElement.children[1].value = quantity;
         }
         if (event.target.id == "addQuantity") {
-            var quantity = parseInt( event.target.parentElement.children[1].value);
+            var quantity = parseInt(event.target.parentElement.children[1].value);
             if (quantity < 99) { quantity = quantity + 1; } else { }
-            event.target.parentElement.children[1].value = quantity ;
+            event.target.parentElement.children[1].value = quantity;
         }
         if (event.target.id == "deleteFromBasket") {
             event.target.parentElement.parentElement.remove();
         }
         if (event.target.id == "makeOrder") {
-            
+
             var order = [];
             var table = document.getElementById("sepet");
             if (table.childElementCount > 0) {
@@ -182,7 +223,15 @@
             }
             else { alert("Sepetiniz Boş") }
         }
+        if (event.target.className == "less") {
+
+
+            document.getElementsByClassName("modal-body")[0].innerHTML = event.target.parentElement.children[2].innerHTML;
+            document.getElementsByClassName("modal-title")[0].innerHTML = event.target.parentElement.parentElement.children[0].innerHTML;
+
+        } 
     });
+
 </script>
 
 
@@ -197,17 +246,17 @@
 @*
 
 
-@foreach (var menu in Model)
-{
-    <div class="row">
+    @foreach (var menu in Model)
+    {
+        <div class="row">
 
 
-        <div class="col-md-2">
-            @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })<br /><br />
+            <div class="col-md-2">
+                @Html.ActionLink(menu.Type, "GetProduct", new { id = menu.ProductTypeId }, new { @class = "btn btn-outline-primary" })<br /><br />
+            </div>
         </div>
-    </div>
 
-}
+    }
 
 
-    *@
+*@

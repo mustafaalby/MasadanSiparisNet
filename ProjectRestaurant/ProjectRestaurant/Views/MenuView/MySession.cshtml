@@ -47,7 +47,7 @@
         background-color: rgba(255, 106, 0, 1.00);
     }
 </style>
-<div class="container tableId" id="@Model.TableId">
+<div class="container tableId" id="@Model.TableId*@Model.TableName">
     <div style="display:flex; justify-content:space-between" ><h2 >@Model.TableName</h2><a class=" btn btn-outline-dark"  asp-controller="MenuView" asp-action="Index">Menü</a></div>
     <div class="row" style="margin-top:20px">
         <div class="col-md-8">
