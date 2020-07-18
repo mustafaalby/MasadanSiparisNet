@@ -162,7 +162,17 @@
                             <tr >
                                 <td style="width:30%;vertical-align:middle">@item2.ProductName</td>
                                 <td style="width:30%;vertical-align:middle">
-                                    <span data-toggle="modal" data-target="#modalTarget" class="less">@item2.Description.Substring(0, 10)</span><span class="dots">...</span>
+                                    <span data-toggle="modal" data-target="#modalTarget" class="less">
+                                        @if (@item2.Description.Length < 11)
+                                        {
+                                            @item2.Description
+                                        }
+                                        else
+                                        {
+                                            @item2.Description.Substring(0, 10)
+                                        }
+
+                                    </span><span class="dots">...</span>
                                     <span class="more">@item2.Description</span>
                                 </td>
                                 <td style="width:30%;vertical-align:middle">@item2.Price ₺</td>

@@ -104,7 +104,19 @@
                                     <div class="row " id="grid">
                                         <div class="menu-text">@Model[i].Menu[k].ProductName</div>
                                         <div>
-                                            <span data-toggle="modal" data-target="#myModal" class="less">@Model[i].Menu[k].Description.Substring(0, 10)</span><span class="dots">...</span>
+                                            <span data-toggle="modal" data-target="#myModal" class="less">
+                                                @if (Model[i].Menu[k].Description.Length < 11)
+                                                {
+                                                    @Model[i].Menu[k].Description
+                                                }
+                                                else
+                                                {
+                                                    @Model[i].Menu[k].Description.Substring(0, 10)
+                                                }
+
+
+
+                                            </span><span class="dots">...</span>
                                             <span class="more">@Model[i].Menu[k].Description</span>
                                         </div>
                                         <div>@Model[i].Menu[k].Price ₺</div>
