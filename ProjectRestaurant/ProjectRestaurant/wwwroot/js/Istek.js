@@ -41,7 +41,8 @@ connection.on("CheckoutResponse", function (tableId ) {
 
 connection.on("CloseSessionLink", function (tableId) {
     
-    if (document.getElementsByClassName("tableId")[0].id == tableId) {
+    if (document.getElementsByClassName("tableId")[0].id.split("*")[0] == tableId) {
+        
         window.location.href = '/MenuView/CloseSession';
     }
     else if (document.getElementsByClassName("tableId")[0].id == "TableDetail") {
