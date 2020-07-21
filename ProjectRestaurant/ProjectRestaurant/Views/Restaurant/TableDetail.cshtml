@@ -37,6 +37,73 @@
         background-color:rgba(255, 106, 0, 1.00);
         
     }
+    .restaurantMessage {
+        width: 200px;
+        word-wrap: break-word;
+        margin-left: auto;
+        margin-right: 5px;
+        text-align: right;
+        color: black;
+        background-color: white;
+        border-radius: 10px 10px 0px 10px;
+        margin-top: 10px;
+        padding: 0 5px 0 5px;
+    }
+    .customerMessage {
+        width: 200px;
+        word-wrap: break-word;
+        text-align: left;
+        margin-right: auto;
+        margin-left: 5px;
+        color: white;
+        background-color: rgba(255, 106, 0, 1.00);
+        border-radius: 10px 10px 10px 0px;
+        margin-top: 10px ;
+        padding:0 5px 0 5px;
+    }
+    #messageBox {
+        height:300px;
+        margin-top:10px; display:flex;
+        flex-direction:column;
+        overflow:auto;
+    }
+    .messageBoxContainer {
+       background-color:rgba(0, 0, 0, 0.4);
+       border-radius:10px 10px 10px 10px;
+       border:1px solid white;
+      
+    }
+    .messageTextBox {
+        margin:5px 5px 15px 5px;
+        height:30px;
+        display:grid;
+        grid-template-columns:80% 20%
+    }
+    #messageBut {
+        font-size: 0.8rem;
+    }
+    #messageBut:hover{
+        background-color:rgba(255, 106, 0, 1.00);
+        color:white;
+        
+    }
+    textarea {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        border-radius:5px;
+        border: 1px solid white;
+        transition:0.3s;
+    }
+        textarea:focus {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 5px;
+            border-color: white;
+            border :1px solid white ;
+            outline:none;
+            box-shadow:0 0 4px white;
+            
+        }
 </style>
 <div class="container tableId" id="TableDetail">
     <div><h2>@Model.TableName</h2></div>
@@ -79,17 +146,18 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <div style="text-align:center">Müşteri No: @Model.SessionId</div>
+                    <div id="sessionId" style="text-align:center">Müşteri No:@Model.SessionId</div>
                 </div>
                 <div class="card-body">
                     <div>
                         <div><p style="text-align:center">Masa :@Model.TableName</p></div>
                         <div><p style="text-align:center">Başlangıç: @Model.StartDate</p></div>
                         <div><p style="text-align:center">Toplam Fiyat:@Model.TotalFee</p> </div>
-                        <div style="text-align:center" >
+                        <div style="text-align:center; display:grid; grid-template-columns:33% 33% 33%" >
 
-                            <a  asp-action="DeliverOrder" asp-controller="Restaurant" asp-route-id="@Model.SessionId" class="btn btn-outline-dark float-left"    >Sipariş Hazır</a>
-                            <div class="float-right" id="@Model.TableId"><a asp-action="CloseSession" asp-controller="Restaurant" asp-route-id="@Model.SessionId" id="closeSession" class="btn btn-outline-dark">Hesabı Kapat</a></div>
+                            <a asp-action="DeliverOrder" asp-controller="Restaurant" asp-route-id="@Model.SessionId" class="btn btn-outline-dark float-left">Sipariş Hazır</a>
+                            <div  id="@Model.TableId"><a asp-action="CloseSession" asp-controller="Restaurant" asp-route-id="@Model.SessionId" id="closeSession" class="btn btn-outline-dark">Hesabı Kapat</a></div>
+                            <div id="@Model.TableId"><a target="_blank" asp-action="CancelOrders" asp-controller="Restaurant" asp-route-id="@Model.TableId"  class="btn btn-outline-dark">Sipariş İptalleri</a></div>
                         </div>
                         
 
@@ -99,9 +167,73 @@
 
                 </div>
             </div>
+            <div class="messageBoxContainer">
+                <div id="messageBox">
+                    
+                </div>
+                <div class="messageTextBox">
+                    <textarea placeholder="Mesajınız..." id="messageText" style="height:auto; resize:none"></textarea>
+                    <button id="messageBut"  class="btn btn-outline-light">Gönder</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Istek.js"></script>
+<script>
+    $(document).ready(function () {
+        getMessages();
+    });
+    $("#messageBut").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/MenuView/PostMessage",
+            data: {
+                SessionId: $("#sessionId").text().split(":")[1],
+                From: "Restoran",
+                To: $("#sessionId").text().split(":")[1],
+                MessageText: $("#messageText").val()
+            },
+            success: function (result) {
+                getMessages();
+            }
+
+        })
+    })
+    function getMessages() {
+        $.ajax({
+            type: "get",
+            url: "/MenuView/GetMessages",
+            dataType:"json",
+            data: {
+                sessionId: $("#sessionId").text().split(":")[1]
+            },
+            success: function (result) {
+                $("#messageBox div").html('');
+                $('#messageText').val("");
+                
+                for (var i = 0; i < result.length; i++) {
+                    
+                    if (result[i].from == "Restoran")
+                    {
+                        
+                        var temp = "<div class=restaurantMessage > <p>" + result[i].messageText + "</p></div >";
+                        
+                    }
+                    else {
+                        var temp = "<div class=customerMessage > <p>" + result[i].messageText + "</p></div >"; 
+                        
+                    }
+                    $("#messageBox").append(temp);
+                    $('#messageBox').scrollTop($('#messageBox').prop('scrollHeight'));
+                }
+            },
+            error: function (result) {
+                console.log(result);
+            
+}
+        })
+    }
+</script>

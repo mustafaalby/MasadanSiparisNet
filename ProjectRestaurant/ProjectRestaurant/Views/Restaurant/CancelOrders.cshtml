@@ -1,0 +1,226 @@
+﻿@model SessionViewModel
+@{
+    ViewData["Title"] = "Sipariş İptali";
+}
+<style>
+    body {
+        background-image: url('/image/cafebackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .col-md-4 a {
+        background-color: rgba(2, 147, 0, 0);
+        color: rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+
+    .col-md-4 > button {
+        background-color: rgba(2, 147, 0, 0);
+        color: rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
+    }
+
+    .more {
+        display: none
+    }
+
+    .col-md-4 a:hover {
+        background-color: #ee7500;
+        border-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+    }
+
+    .col-md-4 button:hover {
+        background-color: #ee7500;
+        border-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+    }
+
+    #grid {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+        #grid div {
+            text-align: center;
+            vertical-align: middle;
+            padding-bottom: 25px;
+            padding-top: 25px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        #grid .row {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    #quantityBox {
+        resize: none;
+        width: 50px;
+        height: 40px;
+        white-space: normal;
+        text-align: justify;
+        -moz-text-align-last: center;
+        text-align-last: center;
+    }
+    .tableId {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 25px 25px 20px 25px;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .modal-content {
+        background-color: rgba(0, 0, 0, 1);
+        color: white;
+        text-align: center;
+    }
+
+    #modalTitle {
+        margin: auto;
+        font-style: italic;
+        color: white;
+        font-size: 30px;
+    }
+</style>
+    <div class="container tableId">
+        <div><h2>@Model.TableName</h2></div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sipariş No</th>
+                            <th>Ürün</th>
+                            <th>Adet</th>                            
+                            <th>Çıkar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Order.Count; i++)
+                        {
+                            if (Model.Order[i].isDelivered)
+                            {
+                        <tr>
+                            <td>  @Model.Order[i].OrderId</td>
+                            <td>@Model.Order[i].ProductName</td>
+                            <td>
+                                <div class="row">
+                                    <button id="subQuantity" class="btn btn-outline-danger">-</button>
+                                    <textarea disabled="disabled" id="quantityBox" class="form-control  @Model.Order[i].Quantity" rows="1" maxlength="2">@Model.Order[i].Quantity</textarea>
+                                    <button id="addQuantity" class="btn btn-outline-success">+</button>
+                                </div>
+                            </td>
+                            <td><div><button id="Sub" class="btn btn-outline-primary">-</button></div></td>
+
+                        </tr>
+                            }
+                            else
+                            {
+                    <tr class="table-secondary" style="color:#000000">
+                        <td>  @Model.Order[i].OrderId</td>
+                        <td>@Model.Order[i].ProductName</td>
+                        <td>
+                            <div class="row">
+                                <button id="subQuantity" class="btn btn-outline-danger">-</button>
+                                <textarea disabled="disabled" id="quantityBox" class="form-control @Model.Order[i].Quantity" rows="1" maxlength="2">@Model.Order[i].Quantity</textarea>
+                                <button id="addQuantity" class="btn btn-outline-success">+</button>
+                            </div>
+                        </td>
+                        <td><div><button id="Sub" class="btn btn-outline-primary">-</button></div></td>
+                        <td> @Html.HiddenFor(x => Model.Order[i].OrderId)</td>
+                    </tr>
+                               
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr><th>Sipariş No</th>
+                            <th scope="col">Ürün</th>
+                            <th scope="col">Adet</th>                            
+                            <th scope="col">Çıkar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sepet">
+                    </tbody>
+                </table>
+                <div style="text-align:center">
+                    <button class="btn btn-outline-light" id="iptal"> İptal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    document.body.addEventListener("click", function (event) {
+        if (event.target.id == "Sub") {
+
+            var yemek = event.target.parentElement.parentElement.parentElement.children[1].innerText;
+            var adet = event.target.parentElement.parentElement.parentElement.children[2].children[0].children[1].value;
+            var siparişNo=event.target.parentElement.parentElement.parentElement.children[0].innerText;
+            adet = parseInt(adet);
+            
+           
+            if (adet != 0) {
+                var order = '<tr id=><td>' + siparişNo + '</td><td>' + yemek + '</td><td>' + adet + '</td><td><button id="deleteFromBasket" class="btn btn-outline-warning">-</button</td></tr > ';
+                document.getElementById("sepet").innerHTML += order;
+            }
+        }
+        if (event.target.id == "subQuantity") {
+           
+            var quantity = parseInt(event.target.parentElement.children[1].value);
+           
+            if (quantity <2) { } else { quantity = quantity - 1; }
+            event.target.parentElement.children[1].value = quantity;
+            
+        }
+        if (event.target.id == "addQuantity") {
+            var maxQuantity = parseInt(event.target.parentElement.children[1].className.split(" ")[1]);
+            var quantity = parseInt(event.target.parentElement.children[1].value);
+           
+            if (quantity < maxQuantity) { quantity = quantity + 1; } else { }
+            event.target.parentElement.children[1].value = quantity;
+
+        }
+        if (event.target.id == "deleteFromBasket") {
+            event.target.parentElement.parentElement.remove();
+        }
+        if (event.target.id == "iptal") {
+
+            var order = [];
+            var table = document.getElementById("sepet");
+            if (table.childElementCount > 0) {
+                for (var i = 0; i < table.childElementCount; i++) {
+                    var temp = { OrderId: parseInt(table.children[i].children[0].innerText), ProductName: table.children[i].children[1].innerText, Quantity: parseInt(table.children[i].children[2].innerText) };
+                    order.push(temp);
+                }
+                while (table.firstChild) {
+                    table.removeChild(table.lastChild);
+                }
+                $.ajax({
+                    url: '/MenuView/UpdateOrder',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        order
+                    },
+                    statusCode: {
+                        200: function () {
+                            
+                        }
+                    }
+                });
+            }
+            
+        }
+    });
+
+</script>

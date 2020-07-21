@@ -15,5 +15,6 @@ namespace ProjectRestaurant.Data.Entities
         public int TableId { get; set; }
         public virtual Table Table {get;set;}
         public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection <Message> Message { get; set; }
     }
 }

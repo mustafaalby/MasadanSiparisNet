@@ -183,5 +183,11 @@ namespace ProjectRestaurant.Controllers
             _restaurantService.CloseSession(id);
             return Ok();
         }
+        public IActionResult CancelOrders(int id)
+        {
+            var session = _restaurantService.GetSessionDetail(id);
+            var mapped = _mapper.Map<SessionViewModel>(session);
+            return View(mapped);
+        }
     }
 }

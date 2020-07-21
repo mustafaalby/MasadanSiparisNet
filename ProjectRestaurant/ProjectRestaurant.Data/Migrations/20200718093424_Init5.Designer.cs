@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectRestaurant.Data.Context;
 
 namespace ProjectRestaurant.Data.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    partial class RestaurantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200718093424_Init5")]
+    partial class Init5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,10 +187,8 @@ namespace ProjectRestaurant.Data.Migrations
 
             modelBuilder.Entity("ProjectRestaurant.Data.Entities.Message", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("From")
                         .HasColumnType("nvarchar(max)");
@@ -202,7 +202,7 @@ namespace ProjectRestaurant.Data.Migrations
                     b.Property<string>("To")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("MessageId");
 
                     b.HasIndex("SessionId");
 
