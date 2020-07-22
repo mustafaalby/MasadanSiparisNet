@@ -51,7 +51,7 @@ namespace ProjectRestaurant
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
             });
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddRazorPages();
             services.AddSession();
         }

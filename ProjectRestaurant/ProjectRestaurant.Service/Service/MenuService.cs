@@ -145,5 +145,38 @@ namespace ProjectRestaurant.Service.Service
             else { return false; }
             
         }
+        
+        public List<Message> GetMessages(int sessionId)
+        {
+            var result = _context.Message.Where(x => x.SessionId == sessionId).ToList();
+            return result;
+        }
+        public async Task<int>  PostMessages(Message message)
+        {
+            var session = _context.Session.Where(x => x.SessionId == message.SessionId).FirstOrDefault();
+            message.Session = session;
+            _context.Message.Add(message);
+           var result=  await _context.SaveChangesAsync();
+            return result;
+           
+        }
+        public void OrderUpdate(List<OrderUpdateDto> orders)
+        {
+            foreach (var item in orders)
+            {
+                var order = _context.Order.Where(x => x.OrderId == item.OrderId).FirstOrDefault();
+                order.Quantity = order.Quantity - item.Quantity;
+            }            
+             _context.SaveChanges();
+            var orderToSes = _context.Order.Where(x => x.OrderId == orders[0].OrderId).FirstOrDefault();
+            var session = _context.Session.Where(x => x.SessionId == orderToSes.Session.SessionId).FirstOrDefault();
+            float totalFee = 0;
+            foreach (var item in session.Order)
+            {
+                totalFee += (item.Price * item.Quantity);
+            }
+            session.TotalFee = totalFee;
+             _context.SaveChanges();
+        }
     }
 }

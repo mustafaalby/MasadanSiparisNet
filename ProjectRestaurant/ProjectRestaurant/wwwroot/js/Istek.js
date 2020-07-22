@@ -145,3 +145,50 @@ if (document.getElementById("closeSession") != null) {
     });
 
 }
+connection.on("message", function (event) {
+
+    setTimeout(getMessages, 500);
+});
+
+if (document.getElementById("messageBut") != null) {
+    document.getElementById("messageBut").addEventListener("click", function (event) {
+        if (event.target.id == "messageBut") {
+
+            connection.invoke("Messaging");
+        }
+    });
+
+}
+function getMessages() {
+    $.ajax({
+        type: "get",
+        url: "/MenuView/GetMessages",
+        dataType: "json",
+        data: {
+            sessionId: $("#sessionId").text().split(":")[1]
+        },
+        success: function (result) {
+            $("#messageBox div").html('');
+            $('#messageText').val("");
+
+            for (var i = 0; i < result.length; i++) {
+
+                if (result[i].from == "Restoran") {
+
+                    var temp = "<div class=restaurantMessage > <p>" + result[i].messageText + "</p></div >";
+
+                }
+                else {
+                    var temp = "<div class=customerMessage > <p>" + result[i].messageText + "</p></div >";
+
+                }
+                $("#messageBox").append(temp);
+                $('#messageBox').scrollTop($('#messageBox').prop('scrollHeight'));
+            }
+        },
+        error: function (result) {
+            console.log(result);
+
+        }
+    })
+}

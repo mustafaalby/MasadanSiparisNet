@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjectRestaurant.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace ProjectRestaurant.Data.Context
@@ -40,6 +41,10 @@ namespace ProjectRestaurant.Data.Context
                 HasOne(x => x.ProductType).
                 WithMany(y => y.Menu).
                 HasForeignKey(z => z.ProductTypeId);
+            builder.Entity<Session>().
+                HasMany(x => x.Message).
+                WithOne(y => y.Session).
+                HasForeignKey(z => z.SessionId);
 
             base.OnModelCreating(builder);
         }
@@ -52,5 +57,6 @@ namespace ProjectRestaurant.Data.Context
         public DbSet<RestaurantAddress> RestaurantAddress { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
+        public DbSet<Message> Message { get; set; }
     }
 }

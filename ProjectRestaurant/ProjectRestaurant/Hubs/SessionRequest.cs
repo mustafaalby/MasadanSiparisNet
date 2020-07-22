@@ -59,5 +59,10 @@ namespace ProjectRestaurant.Hubs
         {
             return Clients.Others.SendAsync("CloseSessionLink",tableId);
         }
+        public async Task Messaging()
+        {
+            await Clients.All.SendAsync("message");
+
+        }
     }
 }

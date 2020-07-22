@@ -40,6 +40,9 @@ namespace ProjectRestaurant.Profiles
 
             CreateMap<SessionViewModel, SessionDto>();
             CreateMap<SessionDto, SessionViewModel>();
+
+            CreateMap<Message, MessageJson>();
+            CreateMap<MessageJson, Message>();
         }
     }
 }

@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Newtonsoft.Json;
 using ProjectRestaurant.Data.Context;
+using ProjectRestaurant.Data.Entities;
 using ProjectRestaurant.Models;
 using ProjectRestaurant.Service.Dto;
 using ProjectRestaurant.Service.Service;
@@ -83,6 +86,37 @@ namespace ProjectRestaurant.Controllers
             
             Response.Cookies.Delete("SessionId");
             return RedirectToAction("Tables","Home");
+        }
+        [HttpGet]
+        public JsonResult GetMessages(int sessionId)
+        {
+            var messages = _service.GetMessages(sessionId);
+
+            return Json(messages);
+
+        }
+        public  async Task<IActionResult> PostMessage(MessageJson message)
+        {
+            var mapped = _mapper.Map<Data.Entities.Message>(message);
+            await _service.PostMessages(mapped);
+            return Ok();
+        }
+        public IActionResult UpdateOrder(List<OrderUpdateModel> order)
+        {
+
+            List < OrderUpdateDto> orderList = new List<OrderUpdateDto>();
+            foreach (var item in order)
+            {
+                orderList.Add(
+                    new OrderUpdateDto { 
+                        OrderId=item.OrderId,
+                        ProductName=item.ProductName,
+                        Quantity=(float) item.Quantity
+                    }
+                    );
+            }
+             _service.OrderUpdate(orderList); 
+            return Ok();
         }
     }
 }
